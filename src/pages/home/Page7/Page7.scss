@@ -1,0 +1,142 @@
+@import "../../../data/colors/theme.scss";
+
+.page7-container {
+
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+ 
+ 
+  font-family: var(--font-text);
+  color: var(--text-primary);
+
+  @media (min-width: 768px) {
+    padding: 40px;
+}
+
+  @media (min-width: 1024px) {
+   padding: 20px; 
+}
+}
+
+.roadmap-content {
+  display: flex;
+  flex-direction: column;
+  
+
+  padding: 2rem;
+  border-radius: 2rem;
+  
+  
+  width: 100%;
+
+  
+  @media (max-width: 767px) {
+    padding: 1rem;
+    border-radius: 1rem;
+  }
+
+  @media (max-width: 414px) { // iPhone-specific
+    padding: 0.5rem;
+    margin: 0.5rem;
+  }
+}
+
+.roadmap-content h1 {
+  font-family: var(--font-heading);
+  font-size: 2.5rem;
+  color: var(--primary-color-3);
+  text-align:left;
+  margin-bottom: 1.5rem;
+
+  @media (min-width: 768px) {
+    font-size: 3.5rem;
+  }
+
+  @media (max-width: 414px) {
+    font-size: 1.8rem;
+  }
+}
+
+
+.roadmap-buttons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+    justify-content: flex-end;
+  @media (max-width: 767px) {
+    flex-direction: column;
+    align-items: right;
+  }
+}
+
+.download-button {
+  position: relative;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  text-decoration: none;
+  color: var(--primary-color-1);
+  overflow: hidden;
+  transition: transform 0.2s;
+
+  &.frontend {
+    background: var(--primary-color-4);
+  }
+
+  &.backend {
+    background: var(--secondary-color-1);
+  }
+
+  &:hover {
+    transform: scale(1.05);
+
+    .robot-animation {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  .button-text {
+    position: relative;
+    z-index: 2;
+  }
+
+  .robot-animation {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: url('https://images.pexels.com/photos/207662/pexels-photo-207662.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop') center/cover;
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: opacity 0.3s, transform 0.3s;
+    z-index: 1;
+  }
+
+  @media (max-width: 414px) {
+    width: 100%;
+    padding: 0.5rem;
+    font-size: 0.9rem;
+  }
+}
+
+// iPad-specific media queries
+@media only screen 
+  and (min-device-width: 768px) 
+  and (max-device-width: 1024px) {
+  .roadmap-content {
+    padding: 1.5rem;
+  }
+
+  h1 {
+    font-size: 3rem;
+  }
+
+  .download-button {
+    padding: 0.8rem 2rem;
+  }
+}

@@ -1,0 +1,266 @@
+@import "../../data/colors/theme.scss";
+
+.privacyPage {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  color: $primary-color-3;
+  position: relative;
+  overflow: hidden;
+
+  .particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .particle {
+    position: absolute;
+    width: 8px;
+    height:8px;
+    background: linear-gradient(180deg, #000000ca, #000000);
+    border-radius: 30% 30% 30% 30%;
+    animation: rain linear infinite;
+    opacity: 0.6;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+
+  @keyframes rain {
+    0% {
+      transform: translateY(-10vh) rotate(5deg);
+      opacity: 0.6;
+    }
+    50% {
+      opacity: 0.8;
+    }
+    100% {
+      transform: translateY(100vh) rotate(-5deg);
+      opacity: 0;
+    }
+  }
+
+  .header {
+    text-align: center;
+    margin-bottom: 5rem;
+    position: relative;
+    z-index: 1;
+
+    h1 {
+      font-size: 6.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: $primary-color-3;
+      font-family: $heading-font;
+      display: inline-block;
+      animation: fadeIn 1s ease-out;
+    }
+
+    p {
+      font-size: 1.1rem;
+      color: $primary-color-4;
+      font-family: $text-font;
+      max-width: 700px;
+      margin: 0 auto;
+      animation: fadeIn 1.5s ease-out;
+    }
+  }
+
+  .privacyContainer {
+    position: relative;
+    z-index: 1;
+    margin: 0 auto;
+  }
+
+  .policy {
+    background-color: white;
+    border-radius: 1rem;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    padding: 3rem;
+    position: relative;
+    overflow: hidden;
+    animation: slideUp 0.8s ease-out;
+
+    &::before, &::after {
+      content: '';
+      position: absolute;
+      background: linear-gradient(45deg, #01ed09, #00ff2f);
+      z-index: -1;
+    }
+
+    &::before {
+      top: -4px;
+      left: -4px;
+      right: -4px;
+      height: 4px;
+    }
+
+    &::after {
+      bottom: -4px;
+      left: -4px;
+      right: -4px;
+      height: 4px;
+    }
+
+    .policyContent {
+      position: relative;
+      border: 2px solid transparent;
+      border-image: linear-gradient(45deg, #000000dc, #000000) 1;
+      padding: 2rem;
+      background-color: #f8fafc;
+      border-radius: 0.5rem;
+    }
+  }
+
+  .policyTitle {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: $primary-color-3;
+    font-family: $heading-font;
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+
+  .lastUpdated {
+    font-size: 1rem;
+    color: $secondary-color-1;
+    text-align: center;
+    margin-bottom: 2rem;
+    font-style: italic;
+  }
+
+  .policySection {
+    margin-bottom: 2rem;
+  }
+
+  .sectionTitle {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: $primary-color-3;
+    font-family: $heading-font;
+    margin-bottom: 0.75rem;
+    position: relative;
+    padding-bottom: 0.5rem;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 80px;
+      height: 2px;
+      background: linear-gradient(90deg,#343c7f, #232A5C);
+    }
+  }
+
+  .sectionContent {
+    font-size: 1rem;
+    color: $primary-color-4;
+    font-family: $text-font;
+    line-height: 1.6;
+  }
+
+  .dataTypes {
+    margin-top: 1rem;
+
+    h4 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: $primary-color-3;
+      font-family: $heading-font;
+      margin-bottom: 0.5rem;
+    }
+
+    ul {
+      list-style-type: disc;
+      margin-left: 1.5rem;
+      color: $primary-color-4;
+      font-family: $text-font;
+
+      li {
+        margin-bottom: 0.5rem;
+      }
+    }
+  }
+
+  .contactCta {
+    text-align: center;
+    margin-top: 3rem;
+    padding: 2rem;
+    background-color: #ebf8ff;
+    border-radius: 0.5rem;
+    position: relative;
+    z-index: 1;
+    animation: fadeIn 2s ease-out;
+
+    h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: $primary-color-3;
+      font-family: $heading-font;
+    }
+
+    p {
+      margin-bottom: 1.5rem;
+      color: $primary-color-4;
+      font-family: $text-font;
+    }
+
+    .button {
+      padding: 0.75rem 1.5rem;
+      border-radius: 9999px;
+      font-family: $text-font;
+      font-weight: 600;
+      background-color: $background-dark;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 6px rgba(66, 153, 225, 0.3);
+
+      &:hover {
+        background-color: $background-light;
+        color: $primary-color-3;
+        transform: translateY(-2px) scale(1.05);
+        box-shadow: 0 6px 8px rgba(49, 130, 206, 0.4);
+      }
+    }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(50px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 768px) {
+    .header {
+      h1 {
+        font-size: 3rem;
+      }
+    }
+
+    .policy {
+      padding: 1.5rem;
+    }
+
+    .policyTitle {
+      font-size: 2rem;
+    }
+
+    .sectionTitle {
+      font-size: 1.3rem;
+    }
+
+    .sectionContent {
+      font-size: 0.95rem;
+    }
+  }
+}

@@ -1,0 +1,326 @@
+@import "../../../data/colors/theme.scss";
+
+.container {
+  display: grid;
+  grid-template-rows: 1fr 10rem auto;
+  grid-template-areas: "main" "." "footer";
+  overflow-x: hidden;
+  background: var(--background-light);
+  min-height: 100vh;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.footer {
+  z-index: 1;
+  --footer-background: black;
+  display: grid;
+  position: relative;
+  grid-area: footer;
+  min-height: 12rem;
+  width: 100%;
+
+  .bubbles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1rem;
+    background: var(--footer-background);
+    filter: url("#blob");
+
+    .bubble {
+      position: absolute;
+      left: var(--position, 50%);
+      background: var(--footer-background);
+      border-radius: 100%;
+      animation: bubble-size var(--time, 4s) ease-in infinite var(--delay, 0s),
+        bubble-move var(--time, 4s) ease-in infinite var(--delay, 0s);
+      transform: translate(-50%, 100%);
+    }
+  }
+
+  .content {
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    background: var(--footer-background);
+    color: #F5F7FA;
+    width: 100%;
+    box-sizing: border-box;
+
+    a {
+      color: inherit;
+      text-decoration: none;
+      transition: color 0.2s ease;
+
+      &:hover {
+        color: white;
+        text-decoration: underline;
+      }
+    }
+
+    b {
+      color: white;
+    }
+
+    p {
+      margin: 0;
+      font-size: 0.75rem;
+      line-height: 1.5;
+    }
+
+    .footerGrid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      width: 100%;
+      margin-bottom: 2rem;
+
+      @media (max-width: 768px) {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      @media (max-width: 480px) {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .footerSection {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      margin-bottom: 1rem;
+
+      .brandContainer {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        margin-bottom: 1rem;
+
+        .logoContainer {
+          width: 4rem;
+          height: 4rem;
+          margin-bottom: 0.5rem;
+          perspective: 1000px;
+
+          .logoImage {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+          }
+        }
+
+        .brandName {
+          font-size: 1.2rem;
+          font-weight: 700;
+          margin: 0 0 0.25rem 0;
+          color: white;
+        }
+
+        .brandSlogan {
+          font-size: 0.8rem;
+          margin: 0;
+          opacity: 0.9;
+        }
+      }
+
+      .brandDescription {
+        font-size: 0.8rem;
+        margin-bottom: 1rem;
+        max-width: 300px;
+      }
+
+      .socialIcons {
+        display: flex;
+        gap: 0.5rem;
+        margin-top: 1rem;
+
+        .socialLink {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 2.5rem;
+          height: 2.5rem;
+          border-radius: 50%;
+          padding: 0.5rem;
+          transition: all 0.2s ease;
+        }
+      }
+
+      .sectionTitle {
+        font-size: 1rem;
+        font-weight: 600;
+        margin: 0 0 1rem 0;
+        color: white;
+      }
+
+      .linkList {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+
+        li {
+          margin: 0;
+        }
+      }
+
+      .contactOptions {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        width: 100%;
+
+        .dropdownContainer {
+          position: relative;
+          width: 100%;
+
+          .dropdownButton {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            padding: 0.75rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            border-radius: 0.5rem;
+            color: white;
+            cursor: pointer;
+            transition: all 0.2s ease;
+
+            &:hover {
+              background: rgba(255, 255, 255, 0.2);
+            }
+
+            &.activeDropdown {
+              background: rgba(255, 255, 255, 0.2);
+            }
+
+            .buttonContent {
+              display: flex;
+              align-items: center;
+              gap: 0.5rem;
+
+              .buttonIcon {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 2rem;
+                height: 2rem;
+                border-radius: 50%;
+              }
+            }
+          }
+
+          .dropdownContent {
+            overflow: hidden;
+            position: relative;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 0 0 0.5rem 0.5rem;
+
+            .dropdownItems {
+              padding: 0.5rem;
+              display: flex;
+              flex-direction: column;
+              gap: 0.5rem;
+            }
+
+            .contactItem {
+              display: flex;
+              align-items: center;
+              gap: 0.5rem;
+              padding: 0.5rem;
+              border-radius: 0.25rem;
+              transition: background-color 0.2s ease;
+
+              &:hover {
+                background: rgba(255, 255, 255, 0.1);
+              }
+
+              .contactIcon {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 2rem;
+                height: 2rem;
+                border-radius: 50%;
+                flex-shrink: 0;
+              }
+
+              .contactText {
+                font-weight: 500;
+                margin: 0;
+              }
+
+              .contactSubtext {
+                font-size: 0.7rem;
+                opacity: 0.8;
+                margin: 0.2rem 0 0 0;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .copyrightContainer {
+      width: 100%;
+      margin-top: 2rem;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+
+      .copyrightContent {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+
+        @media (min-width: 768px) {
+          flex-direction: row;
+          justify-content: space-between;
+        }
+
+        .copyrightText {
+          margin: 0;
+          font-size: 0.75rem;
+          opacity: 0.8;
+        }
+
+        .legalLinks {
+          display: flex;
+          gap: 1rem;
+          flex-wrap: wrap;
+          justify-content: center;
+
+          @media (min-width: 768px) {
+            justify-content: flex-end;
+          }
+        }
+      }
+    }
+  }
+}
+
+@keyframes bubble-size {
+  0%, 75% {
+    width: var(--size, 4rem);
+    height: var(--size, 4rem);
+  }
+  100% {
+    width: 0rem;
+    height: 0rem;
+  }
+}
+
+@keyframes bubble-move {
+  0% {
+    bottom: -4rem;
+  }
+  100% {
+    bottom: var(--distance, 10rem);
+  }
+}

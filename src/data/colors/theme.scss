@@ -1,0 +1,41 @@
+/* src/styles/theme.scss */
+
+// Colors
+$primary-color-1: rgb(251, 253, 253);
+$primary-color-2: #fdfffe;
+$primary-color-3: rgb(0, 0, 0);
+$primary-color-4: #fb6f12;
+$secondary-color-1: #232A5C;
+$secondary-color-2: #232A5C;
+$background-light: #fcfcfc;
+$background-dark: #000000;
+$text-primary: #232A5C;
+$text-secondary: #232A5C;
+$accent: #232A5C;
+
+// Fonts
+$heading-font: 'Bebas Neue', sans-serif;
+$text-font: 'Playwrite AU QLD', sans-serif;
+
+// Google Fonts Import (Optimized)
+@import url('https://fonts.googleapis.com/css2?family=Playwrite+AU+QLD:wght@100..400&family=Bebas+Neue&display=swap');
+
+// CSS Variables
+:root {
+  // Colors
+  --primary-color-1: #{$primary-color-1};
+  --primary-color-2: #{$primary-color-2};
+  --primary-color-3: #{$primary-color-3};
+  --primary-color-4: #{$primary-color-4};
+  --secondary-color-1: #{$secondary-color-1};
+  --secondary-color-2: #{$secondary-color-2};
+  --background-light: #{$background-light};
+  --background-dark: #{$background-dark};
+  --text-primary: #{$text-primary};
+  --text-secondary: #{$text-secondary};
+  --accent: #{$accent};
+
+  // Fonts
+  --font-heading: #{$heading-font};
+  --font-text: #{$text-font};
+}

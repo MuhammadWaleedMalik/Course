@@ -1,0 +1,95 @@
+[
+  {
+    "category": "general",
+    "title": "General",
+    "faqs": [
+      {
+        "id": 1,
+        "question": "How does the 6-month full-stack program work?",
+        "answer": "Our program is divided into two 3-month segments: frontend development followed by backend development. Each segment includes video lessons, coding exercises, projects, and mentorship."
+      },
+      {
+        "id": 2,
+        "question": "What payment options do you offer?",
+        "answer": "We offer monthly payment plans, one-time payment discounts, and scholarship opportunities for exceptional candidates. All major credit cards and PayPal are accepted."
+      },
+      {
+        "id": 3,
+        "question": "Will I receive a certificate after completion?",
+        "answer": "Yes, you'll receive a certificate of completion after finishing each segment (frontend and backend) and a comprehensive full-stack developer certificate after completing both."
+      },
+      {
+        "id": 4,
+        "question": "What if I fall behind during the program?",
+        "answer": "We offer flexible scheduling and extended access to materials. You can also schedule 1:1 sessions with instructors to catch up. Our goal is your success!"
+      },
+      {
+        "id": 5,
+        "question": "Do you offer job placement assistance?",
+        "answer": "Yes! We provide resume reviews, portfolio building, interview preparation, and connections to our hiring partners. Many of our graduates have secured positions at top tech companies."
+      }
+    ]
+  },
+  {
+    "category": "frontend",
+    "title": "Frontend Program",
+    "faqs": [
+      {
+        "id": 1,
+        "question": "What frontend technologies will I learn in the 3-month program?",
+        "answer": "Our frontend program covers HTML5, CSS3, JavaScript (ES6+), React.js, and modern tools like Webpack and Babel. You'll also learn responsive design principles and CSS frameworks like Tailwind CSS."
+      },
+      {
+        "id": 2,
+        "question": "Do I need any prior coding experience for the frontend course?",
+        "answer": "No prior experience is required. We start from the absolute basics and gradually progress to advanced concepts. However, familiarity with computers and basic logic will be helpful."
+      },
+      {
+        "id": 3,
+        "question": "How much time should I dedicate daily to the frontend program?",
+        "answer": "We recommend dedicating 2-3 hours daily for optimal progress. This includes video lessons, coding exercises, and project work. The program is designed to be intensive but manageable."
+      },
+      {
+        "id": 4,
+        "question": "Will I build real projects during the frontend course?",
+        "answer": "Yes! You'll build 5+ portfolio-worthy projects including a responsive e-commerce site, a React dashboard application, and a modern single-page application with API integration."
+      },
+      {
+        "id": 5,
+        "question": "What kind of support will I get during the frontend program?",
+        "answer": "You'll have access to weekly live Q&A sessions, a dedicated Slack channel with instructors, code reviews, and 24/7 forum support. We also provide career guidance and interview preparation."
+      }
+    ]
+  },
+  {
+    "category": "backend",
+    "title": "Backend Program",
+    "faqs": [
+      {
+        "id": 1,
+        "question": "What backend technologies are covered in the 3-month program?",
+        "answer": "Our backend curriculum includes Node.js, Express.js, databases (SQL & MongoDB), RESTful APIs, authentication (JWT, OAuth), and deployment. You'll also learn about Docker and cloud services."
+      },
+      {
+        "id": 2,
+        "question": "Should I complete the frontend program before starting backend?",
+        "answer": "While it's recommended to have basic frontend knowledge, it's not mandatory. We provide all necessary foundational concepts at the beginning of the backend program."
+      },
+      {
+        "id": 3,
+        "question": "Will I learn about databases in the backend course?",
+        "answer": "Absolutely! You'll work with both SQL (PostgreSQL) and NoSQL (MongoDB) databases, learn about data modeling, queries, and ORMs like Sequelize and Mongoose."
+      },
+      {
+        "id": 4,
+        "question": "How is the backend program different from the frontend program?",
+        "answer": "While frontend focuses on user interfaces, the backend program dives into server-side development, APIs, databases, authentication, and deployment. You'll build robust server applications."
+      },
+      {
+        "id": 5,
+        "question": "What kind of projects will I build in the backend program?",
+        "answer": "You'll create 4-5 substantial projects including a REST API service, a full-stack application with authentication, a real-time chat application, and a microservices architecture project."
+      }
+    ]
+  }
+]

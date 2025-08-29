@@ -1,0 +1,111 @@
+@import "../../../data/colors/theme.scss";
+
+.page2-container {
+  width: 100%;
+  overflow: hidden;
+}
+
+.page2text
+{
+  font-family: $heading-font;
+}
+.rotatetextparent {
+  background-color: $background-light;
+  text-align: center;
+  padding-top: 10vh;
+  padding-bottom: 15vh;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+
+  @media (min-width: 768px) {
+    padding-top: 15vh;
+    padding-bottom: 20vh;
+    padding-left: 5rem;
+    padding-right: 5rem;
+  }
+}
+
+.subtitle {
+  color: $text-secondary;
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
+  margin-bottom: 2rem;
+  font-size: 1.5rem;
+  font-family: $text-font;
+
+  @media (min-width: 768px) {
+    margin-bottom: 3rem;
+    font-size: 2.25rem;
+  }
+}
+
+.text-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+
+  @media (min-width: 768px) {
+    gap: 0.5rem;
+  }
+}
+
+.rotate-text {
+  font-weight: bold;
+  font-family: $heading-font;
+  text-transform: uppercase;
+  line-height: 1.1;
+  color: $primary-color-3;
+
+  &.accent {
+    color: $primary-color-4;
+  }
+}
+
+.divider {
+  height: 2px;
+  width: 66.666667%;
+  background-color: $primary-color-3;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 3rem;
+
+  @media (min-width: 768px) {
+    width: 33.333333%;
+  }
+}
+
+// Text size classes
+.text-10vw {
+  font-size: 10vw;
+}
+
+.text-12vw {
+  font-size: 12vw;
+}
+
+.text-14vw {
+  font-size: 14vw;
+}
+
+.text-16vw {
+  font-size: 16vw;
+}
+
+.text-18vw {
+  font-size: 18vw;
+}
+
+.text-24vw {
+  font-size: 24vw;
+}
+
+@media (min-width: 768px) {
+  .md-text-15vw {
+    font-size: 15vw;
+  }
+  
+  .md-text-24vw {
+    font-size: 24vw;
+  }
+}

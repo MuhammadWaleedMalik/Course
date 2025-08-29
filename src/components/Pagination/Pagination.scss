@@ -1,0 +1,127 @@
+@import "../../data/colors/theme.scss";
+
+$deep-sea: #000000;
+$navy: #000000;
+$sky: #00000022;
+$cherry: #000000;
+$gold: #000000;
+
+#pagination-container {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+  position: relative;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+  min-height: 450px; /* Ensure enough space for the SVG hand */
+
+  #indicator {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    background-color: $gold;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 0;
+    z-index: 0; /* Adjusted to prevent overlap issues */
+    visibility: visible; /* Ensure indicator is visible when set by GSAP */
+  }
+
+  a {
+    margin: 0 1rem;
+    padding: 0.75rem 0;
+    box-sizing: border-box;
+    border-radius: 50%;
+    width: 3rem;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: $navy;
+    text-decoration: none;
+    font-weight: 700;
+    text-align: center;
+    line-height: 100%;
+    transition: color 0.2s ease;
+    z-index: 1; /* Ensure links are above the SVG */
+
+    &:last-of-type {
+      margin-right: 0;
+    }
+
+    &.active {
+      color: #FFF;
+    }
+  }
+
+  #hand-svg {
+    width: 350px;
+    height: 450px;
+    box-sizing: border-box;
+    position: absolute;
+    top: 200px; /* Adjusted to position hand below links */
+    left: -0px; /* Adjusted to align with first link */
+    z-index: -1; /* Keep behind links and indicator */
+    visibility: visible; /* Initial visibility to ensure it appears */
+    pointer-events: none;
+  }
+
+  @media (max-width: 768px) {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 300px; /* Adjusted for smaller SVG */
+
+    a {
+      margin: 0.5rem;
+      width: 2.5rem;
+      height: 2.5rem;
+      font-size: 1.2rem;
+    }
+
+    #indicator {
+      width: 2.5rem;
+      height: 2.5rem;
+    }
+
+    #hand-svg {
+      width: 200px;
+      height: 257px;
+      transform: scale(0.6); /* Slightly increased scale for better visibility */
+      transform-origin: top center; /* Center alignment for better positioning */
+      top: 40px; /* Adjusted for smaller screens */
+      left: -30px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    min-height: 200px; /* Further reduced height */
+
+    a {
+      width: 2rem;
+      height: 2rem;
+      font-size: 1rem;
+    }
+
+    #indicator {
+      width: 2rem;
+      height: 2rem;
+      display: none;
+    }
+
+    #hand-svg {
+      width: 150px;
+      height: 193px;
+      transform: scale(0.5); /* Adjusted scale for very small screens */
+      top: 30px;
+      display: none;
+      left: -20px;
+    }
+  }
+}

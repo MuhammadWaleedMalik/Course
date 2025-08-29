@@ -1,0 +1,199 @@
+// Variables
+$primary: #4a5bb2;
+$secondary: #f19d46;
+$light-bg: #fef7ce;
+$dark-text: #333;
+$light-text: #fff;
+$transition: cubic-bezier(0.4, 0, 0.2, 1);
+
+.team-showcase {
+  font-family: 'Montserrat', sans-serif;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  background: $light-bg;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  position: relative;
+
+  // Navigation Dots
+  .team-nav-dots {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+    gap: 1rem;
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      border: none;
+      background: rgba($primary, 0.3);
+      cursor: pointer;
+      transition: all 0.3s $transition;
+
+      &.active {
+        background: $primary;
+        transform: scale(1.2);
+      }
+
+      &:hover:not(.active) {
+        background: rgba($primary, 0.6);
+      }
+    }
+  }
+
+  // Team Member Display
+  .team-member-display {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+
+    @media (min-width: 768px) {
+      flex-direction: row;
+      align-items: flex-start;
+    }
+
+    .member-image-container {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 5px solid $primary;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+
+      .member-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.3s $transition;
+      }
+
+      &:hover .member-image {
+        transform: scale(1.05);
+      }
+    }
+
+    .member-info {
+      flex: 1;
+      text-align: center;
+      max-width: 600px;
+
+      @media (min-width: 768px) {
+        text-align: left;
+        padding: 0 2rem;
+      }
+
+      h2 {
+        color: $primary;
+        margin-bottom: 0.5rem;
+        font-size: 2rem;
+      }
+
+      h3 {
+        color: $secondary;
+        margin-bottom: 0.5rem;
+        font-size: 1.5rem;
+      }
+
+      .department {
+        color: $dark-text;
+        font-weight: 500;
+        margin-bottom: 1.5rem;
+      }
+
+      .details-toggle {
+        background: $primary;
+        color: $light-text;
+        border: none;
+        padding: 0.8rem 1.5rem;
+        border-radius: 50px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s $transition;
+        margin-bottom: 1.5rem;
+
+        &:hover {
+          background: darken($primary, 10%);
+          transform: translateY(-2px);
+          box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+        }
+      }
+
+      .member-details {
+        background: rgba($light-text, 0.8);
+        padding: 1.5rem;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        animation: fadeIn 0.5s $transition;
+
+        .bio {
+          color: $dark-text;
+          line-height: 1.6;
+          margin-bottom: 1.5rem;
+        }
+
+        .skills {
+          h4 {
+            color: $primary;
+            margin-bottom: 0.5rem;
+          }
+
+          ul {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            list-style: none;
+            padding: 0;
+
+            li {
+              background: $primary;
+              color: $light-text;
+              padding: 0.3rem 0.8rem;
+              border-radius: 50px;
+              font-size: 0.9rem;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // Mobile Navigation
+  .mobile-nav {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+
+    @media (min-width: 768px) {
+      display: none;
+    }
+
+    .nav-arrow {
+      background: $primary;
+      color: $light-text;
+      border: none;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      font-size: 1.5rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s $transition;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &:hover {
+        background: darken($primary, 10%);
+        transform: scale(1.1);
+      }
+    }
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}

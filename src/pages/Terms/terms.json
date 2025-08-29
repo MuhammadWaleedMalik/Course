@@ -1,0 +1,64 @@
+{
+  "terms": [
+    {
+      "id": 1,
+      "title": "Program Overview",
+      "content": "Our 6-month full-stack development program consists of two 3-month segments: Frontend Development, covering HTML5, CSS3, JavaScript (ES6+), React.js, Webpack, and Tailwind CSS, and Backend Development, covering Node.js, Express.js, SQL (PostgreSQL), MongoDB, RESTful APIs, JWT, OAuth, Docker, and cloud deployment. Delivered online via pre-recorded videos, live Zoom meetings, and code-based projects, access is granted for 6 months plus an additional 3 months for review and is non-transferable."
+    },
+    {
+      "id": 2,
+      "title": "Eligibility and Enrollment",
+      "content": "No prior coding experience is required for the Frontend program, while basic frontend knowledge is recommended but not mandatory for the Backend program. Participants must be 18 or older (or have parental consent) and possess a computer, stable internet, and Zoom software. Enrollment requires completing the registration form and submitting payment."
+    },
+    {
+      "id": 3,
+      "title": "Payment Terms",
+      "content": "Program fees are detailed on our website. Payment options include a one-time payment with a discount or a 6-month installment plan, processed securely via platforms like Stripe or PayPal. Failed payments may pause access, and persistent failure may lead to termination without refund for services rendered. Fees are in USD, and you are responsible for any currency conversion fees."
+    },
+    {
+      "id": 4,
+      "title": "Refund Policy",
+      "content": "A full refund is available within 14 days of enrollment if less than 10% of content is accessed, requested in writing to support@[yourdomain].com. After 14 days, refunds are at our discretion, pro-rated for unused services. One-time discounts and scholarships are non-refundable, as are completed Zoom sessions and downloaded materials."
+    },
+    {
+      "id": 5,
+      "title": "Intellectual Property",
+      "content": "All program content, including videos, code samples, and project templates, is owned by [Your Coaching Website Name] and protected by copyright law. You are granted a non-exclusive, personal license for learning purposes. Reproduction, distribution, or sharing without written consent is prohibited and may result in termination without refund."
+    },
+    {
+      "id": 6,
+      "title": "Participant Responsibilities",
+      "content": "Participants must attend Zoom meetings on time, complete assigned projects, and dedicate approximately 2-3 hours daily for optimal results. Respectful behavior is required in Zoom and Slack communities; violations such as harassment or spam may lead to removal without refund. You are responsible for ensuring your technical setup meets program requirements."
+    },
+    {
+      "id": 7,
+      "title": "Disclaimers",
+      "content": "We strive to provide high-quality education but do not guarantee specific outcomes like job placement or skill proficiency, as results depend on individual effort. Program content may contain minor errors, and we are not liable for technical downtime or third-party content accuracy. The program is educational and does not constitute professional advice."
+    },
+    {
+      "id": 8,
+      "title": "Limitation of Liability",
+      "content": "To the fullest extent permitted by law, [Your Coaching Website Name] is not liable for indirect or consequential damages arising from program participation. Our liability is limited to the amount paid for the program. You assume all risks associated with applying learned skills."
+    },
+    {
+      "id": 9,
+      "title": "Program Access and Termination",
+      "content": "Access to program materials is granted for 6 months plus 3 months for review. We may terminate access for non-payment, intellectual property violations, or harmful behavior. You may terminate participation with 10 days’ written notice, but no refunds apply outside the cooling-off period. Zoom session rescheduling requires 48 hours’ notice, or a 50% fee may apply, except in emergencies."
+    },
+    {
+      "id": 10,
+      "title": "Confidentiality",
+      "content": "Information shared in Zoom meetings or Slack communities is confidential. You agree not to disclose other participants’ information without their written consent."
+    },
+    {
+      "id": 11,
+      "title": "Governing Law",
+      "content": "These terms are governed by the laws of [Your State/Country]. Any disputes will be resolved in the courts of [Your Jurisdiction], and you agree to submit to their exclusive jurisdiction."
+    },
+    {
+      "id": 12,
+      "title": "Modifications to Terms",
+      "content": "We may update these terms at any time, with changes posted on our website. Continued participation constitutes acceptance of updated terms. Significant changes will be communicated via email or platform notification."
+    }
+  ]
+}

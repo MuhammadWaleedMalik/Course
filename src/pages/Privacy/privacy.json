@@ -1,0 +1,46 @@
+{
+  "sections": [
+    {
+      "id": "1",
+      "title": "Information We Collect",
+      "content": "We collect various types of information to provide and improve our services to you:",
+      "dataTypes": [
+        "Personal identification (name, email, phone number)",
+        "Payment and billing information",
+        "Technical data (IP address, browser type, device information)",
+        "Usage data (pages visited, time spent, features used)",
+        "Learning progress and project submissions"
+      ]
+    },
+    {
+      "id": "2",
+      "title": "How We Use Your Data",
+      "content": "Your information helps us deliver and improve our educational services:<ul><li>To provide and maintain our coding programs</li><li>To process payments and enrollment</li><li>To personalize your learning experience</li><li>To monitor program effectiveness</li><li>To communicate important updates</li></ul>"
+    },
+    {
+      "id": "3",
+      "title": "Data Protection",
+      "content": "We implement industry-standard security measures including:<ul><li>SSL/TLS encryption for all data transmissions</li><li>Regular security audits</li><li>Limited access to personal data</li><li>Secure payment processing</li></ul>"
+    },
+    {
+      "id": "4",
+      "title": "Third-Party Sharing",
+      "content": "We only share your data with trusted third parties when necessary:<ul><li>Payment processors to complete transactions</li><li>Cloud service providers for data storage</li><li>Analytics providers to improve our services</li></ul>We never sell your personal data to third parties."
+    },
+    {
+      "id": "5",
+      "title": "Your Rights",
+      "content": "You have the right to:<ul><li>Access your personal data</li><li>Request correction of inaccurate data</li><li>Request deletion of your data</li><li>Withdraw consent for data processing</li><li>Receive your data in a portable format</li></ul>"
+    },
+    {
+      "id": "6",
+      "title": "Cookies and Tracking",
+      "content": "We use cookies and similar technologies to:<ul><li>Authenticate users and maintain sessions</li><li>Remember user preferences</li><li>Analyze website traffic and usage patterns</li></ul>You can control cookies through your browser settings."
+    },
+    {
+      "id": "7",
+      "title": "Policy Updates",
+      "content": "We may update this privacy policy periodically. We will notify you of significant changes through email or prominent website notices. Continued use of our services after changes constitutes acceptance of the updated policy."
+    }
+  ]
+}

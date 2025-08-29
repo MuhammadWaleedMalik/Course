@@ -1,0 +1,30 @@
+{
+  "courses": [
+    {
+      "id": 1,
+      "title": "Frontend Development",
+      "description": "Master the art of building responsive and interactive user interfaces with modern web technologies over 3 months.",
+      "topics": [
+        "HTML5 & Semantic Markup",
+        "CSS3 (Flexbox, Grid, Animations)",
+        "JavaScript (ES6+)",
+        "React.js & Component-Based Architecture",
+        "Webpack & Module Bundling",
+        "Tailwind CSS for Rapid Styling"
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Backend Development",
+      "description": "Learn to build robust server-side applications and APIs with industry-standard tools over 3 months.",
+      "topics": [
+        "Node.js & Express.js",
+        "SQL (PostgreSQL) & Database Design",
+        "MongoDB & NoSQL Databases",
+        "RESTful API Development",
+        "JWT & OAuth for Authentication",
+        "Docker & Cloud Deployment"
+      ]
+    }
+  ]
+}

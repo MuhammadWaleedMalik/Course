@@ -1,0 +1,208 @@
+
+@import "../../../data/colors/theme.scss";
+
+.page3-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 110vh;
+  background-color: $background-light; /* #fcfcfc */
+  position: relative;
+  margin-bottom: 10px; /* Add margin to prevent overlap with footer */;
+}
+
+.page3 {
+  width: 100%;
+  min-height: 100vh; /* Allow growth */
+  position: sticky;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.main-heading {
+  position: absolute;
+  font-size: 12vw;
+  font-weight: 700;
+  font-family: $heading-font; /* Bebas Neue */
+  margin: 0;
+  top: 15%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, $primary-color-3, $primary-color-3, #FF69B4, $primary-color-3, $primary-color-3, #1E90FF, #1E90FF, $primary-color-3, $primary-color-3); /* $primary-color-3: rgb(0, 0, 0) */
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  z-index: 10;
+  will-change: transform, opacity;
+}
+
+.sub-headings {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1rem, 3vw, 1.5rem);
+  left: 6%;
+  top: 45%;
+  z-index: 5;
+  will-change: transform, opacity;
+
+  h3 {
+    font-size: clamp(0.5rem, 3vw, 1.5rem);
+    margin: 0;
+    color: $text-primary; /* #232A5C */
+    font-weight: 600;
+    font-family: $text-font; /* Playwrite AU QLD */
+    will-change: transform, opacity;
+  }
+}
+
+.courses-container {
+  position: absolute;
+  right: 5%;
+  top:30%;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1rem, 3vw, 2rem);
+  width: clamp(450px, 100%, 500px);
+  will-change: transform, opacity;
+}
+
+.course-card {
+  position: relative;
+  background: rgba($primary-color-1, 0.9); /* rgb(251, 253, 253) with opacity */
+  border-radius: 15px;
+  padding: clamp(1rem, 3vw, 1.5rem);
+  border: 1px solid $primary-color-4;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  will-change: transform, opacity;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    z-index: -1;
+    background: linear-gradient(
+      90deg,
+      $primary-color-4, /* #fb6f12 */
+      rgba($primary-color-4, 0),
+      $primary-color-4,
+      rgba($primary-color-4, 0),
+      $primary-color-4
+    );
+    background-size: 200% 100%;
+    border-radius: 16px;
+    animation: borderFlow 3s linear infinite;
+    mask: 
+      linear-gradient(#fff 0 0) content-box, 
+      linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    padding: 2px;
+  }
+
+  h4 {
+    color: $text-primary; /* #232A5C */
+    font-size: clamp(1.2rem, 3vw, 1.5rem);
+    font-family: $heading-font; /* Bebas Neue */
+    margin-bottom: 0.5rem;
+  }
+
+  p {
+    color: $text-secondary; /* #232A5C */
+    font-size: clamp(0.9rem, 2vw, 1rem);
+    font-family: $text-font; /* Playwrite AU QLD */
+    margin: 0 0 1rem 0;
+  }
+
+  &:hover {
+    transform: scale(1.03);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  }
+}
+
+.join-link {
+  display: inline-block;
+  padding: 0.5rem 1.2rem;
+  background: linear-gradient(90deg, $primary-color-4, $accent); /* #fb6f12, #232A5C */
+  color: $primary-color-1; /* rgb(251, 253, 253) */
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 25px;
+  transition: all 0.3s ease;
+  font-family: $text-font; /* Playwrite AU QLD */
+  
+  &:hover {
+    animation: seesawShake 0.8s ease infinite;
+    box-shadow: 0 0 15px rgba($accent, 0.4); /* #232A5C with opacity */
+  }
+  
+  &:active {
+    animation: clickPulse 0.4s ease;
+  }
+}
+
+@keyframes borderFlow {
+  0% { background-position: 200% 0; }
+  100% { background-position: 0% 0; }
+}
+
+@keyframes seesawShake {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-5deg); }
+  75% { transform: rotate(5deg); }
+}
+
+@keyframes clickPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(0.9); }
+  100% { transform: scale(1); }
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .page3 {
+    justify-content: flex-start;
+    padding-top: 20vh;
+    min-height: auto; /* Allow height to grow based on content */
+    height: auto; /* Ensure it expands with content */
+  }
+
+  .main-heading {
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 12vw;
+  }
+
+  .sub-headings {
+    left: 5%;
+    top: 30%;
+    width: 90%;
+    display: none;
+    display: none;
+    opacity: 1; /* Ensure visibility */
+    h3 {
+      font-size: clamp(1rem, 4vw, 1.5rem);
+    }
+  }
+
+  .courses-container {
+    position: static; /* Remove absolute positioning to allow natural flow */
+    width: 90%;
+    margin: 0 auto; /* Center the container */
+    padding: 1rem 0; /* Add padding for spacing */
+    top: auto; /* Reset top positioning */
+  }
+  
+  .course-card {
+    padding: 1rem;
+  }
+}
