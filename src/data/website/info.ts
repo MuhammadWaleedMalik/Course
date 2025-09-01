@@ -1,7 +1,7 @@
   import { WebsiteInfo } from '../../types';
 
 export const websiteInfo: WebsiteInfo = {
-  name: "COURSES CRAFT",
+  name: "COCHINGGGG",
   slogan: "LEARN. CODE. EARN.",
   logo: "https://images.pexels.com/photos/207662/pexels-photo-207662.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop",
   favicon: "/favicon.ico",

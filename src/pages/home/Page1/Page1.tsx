@@ -6,21 +6,19 @@ import TypeWriter from '../../../components/TypeWriter/TypeWriter';
 
 const Page1: React.FC = () => {
   const galleryImages = [
-    "https://i.postimg.cc/qMCyr6xc/project-1.png",
- "https://i.postimg.cc/LXXgbJs1/Project-2.png",
-"https://i.postimg.cc/Nj6X9hV5/Project-3.png",
-    "https://i.postimg.cc/R0jyhHn7/Screenshot-2025-08-28-182510.png",
-    
-"https://i.postimg.cc/Nj6X9hV5/Project-3.png",
-    "https://i.postimg.cc/R0jyhHn7/Screenshot-2025-08-28-182510.png",
-    
+    "/images/assests/1 (1).jpeg",
+    "/images/assests/1 (1).jpg",
+    "/images/assests/1 (1).jpeg",
+    "/images/assests/1 (1).jpg",
+    "/images/assests/1 (1).jpeg",
+    "/images/assests/1 (1).jpg",
   ];
 
   return (
     <div className="page1-container">
       <div className="page1">
         <div className="page1-left">
-          <h1>Courses Craft</h1>
+          <h1>THE COACHING</h1>
           <h1>WEBSITE</h1>
           
           <TypeWriter
@@ -32,7 +30,7 @@ const Page1: React.FC = () => {
 
           <div className="action-buttons">
             <Link to={"/signup"} className="primary-button">Get Started</Link>
-            <Link to={"/about"}  className="primary-button ">Learn More</Link>
+            <Link to={"/about"}  className="secondary-button">Learn More</Link>
           </div>
         </div>
 
