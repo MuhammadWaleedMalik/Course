@@ -1,6 +1,7 @@
 import  { useEffect, useRef } from 'react';
-
-const Page4 = () => {
+import './Page10.scss'; 
+import { Link } from 'react-router-dom';
+const Page10 = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   // Handle video autoplay on mobile
@@ -34,17 +35,21 @@ const Page4 = () => {
           src="https://video.wixstatic.com/video/f1c650_988626917c6549d6bdc9ae641ad3c444/1080p/mp4/file.mp4"
         />
 
-     
-        
-        {/* Responsive heading */}
-        <h1 className="uppercase top-[50%] z-10 absolute w-full text-center px-4 bottom-1/4 md:bottom-48 left-1/2 -translate-x-1/2 font-[myFont1] text-4xl sm:text-5xl md:text-[6vw] text-white leading-tight">
-            You Can Call Us<br className="md:hidden" /> Any Time
-        </h1>
 
-   
-      </div>
+        {/* Responsive heading */}
+        <Link 
+            to={"/signup"}
+            className="uppercase top-[50%] z-10 absolute w-full text-center px-4 bottom-1/4 md:bottom-48 left-1/2 -translate-x-1/2 font-[myFont1] text-4xl sm:text-5xl md:text-[6vw] text-white leading-tight">
+
+                Join Us Now                
+        </Link>
+
+      
+      
+      
+       </div>
     </div>
   );
 };
 
-export default Page4;
+export default Page10;

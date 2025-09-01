@@ -1,0 +1,184 @@
+/* SnakeSpiralAnimation.css */
+.animation-container {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  perspective: 1000px;
+  overflow: hidden;
+  background: linear-gradient(to bottom, #1a2a6c, #b21f1f, #fdbb2d);
+}
+
+.central-pole {
+  position: absolute;
+  width: 30px;
+  height: 120%;
+  background: linear-gradient(to bottom, #5d4037, #8d6e63, #5d4037);
+  transform: translateZ(0);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
+  border-radius: 5px;
+}
+
+.snake {
+  position: absolute;
+  transform-style: preserve-3d;
+}
+
+.snake-head {
+  width: 30px;
+  height: 30px;
+  background: #4caf50;
+  border-radius: 50% 50% 40% 40%;
+  position: absolute;
+  transform-style: preserve-3d;
+  z-index: 10;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.snake-head::before {
+  content: '';
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: black;
+  border-radius: 50%;
+  top: 8px;
+  left: 6px;
+}
+
+.snake-head::after {
+  content: '';
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: black;
+  border-radius: 50%;
+  top: 8px;
+  right: 6px;
+}
+
+.snake-segment {
+  width: 24px;
+  height: 20px;
+  background: linear-gradient(to right, #388e3c, #4caf50, #388e3c);
+  border-radius: 40%;
+  position: absolute;
+  transform-style: preserve-3d;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+
+.website {
+  position: absolute;
+  padding: 12px 20px;
+  background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+  color: white;
+  font-family: 'Arial', sans-serif;
+  font-weight: bold;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.website:hover {
+  transform: scale(1.1) translateZ(20px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+  background: linear-gradient(135deg, #ff8a00 0%, #e52e71 100%);
+}
+
+.current-site-display {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  color: white;
+  font-family: 'Arial', sans-serif;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 15px 30px;
+  border-radius: 15px;
+  backdrop-filter: blur(5px);
+}
+
+.current-site-display h2 {
+  margin: 0 0 10px 0;
+  font-size: 1.2rem;
+}
+
+.current-site {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #ffeb3b;
+}
+
+.instructions {
+  position: absolute;
+  top: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  color: white;
+  font-family: 'Arial', sans-serif;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 10px 20px;
+  border-radius: 10px;
+  backdrop-filter: blur(5px);
+}
+
+.instructions p {
+  margin: 5px 0;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .central-pole {
+    width: 20px;
+  }
+  
+  .website {
+    padding: 8px 15px;
+    font-size: 0.9rem;
+  }
+  
+  .current-site-display {
+    bottom: 20px;
+    padding: 10px 20px;
+  }
+  
+  .current-site-display h2 {
+    font-size: 1rem;
+  }
+  
+  .current-site {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .central-pole {
+    width: 15px;
+  }
+  
+  .website {
+    padding: 6px 12px;
+    font-size: 0.8rem;
+  }
+  
+  .current-site-display {
+    width: 90%;
+    padding: 8px 15px;
+  }
+  
+  .instructions {
+    width: 90%;
+    top: 15px;
+    padding: 8px 15px;
+  }
+  
+  .instructions p {
+    font-size: 0.9rem;
+  }
+}

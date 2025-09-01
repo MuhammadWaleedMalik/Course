@@ -1,0 +1,230 @@
+/* SpiralShowcase.css */
+.spiral-showcase {
+  position: relative;
+  height: 500vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  perspective: 1200px;
+  overflow: hidden;
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+}
+
+.central-pole {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 30px;
+  height: 120%;
+  background: linear-gradient(to bottom, #8b5a2b, #d2b48c, #8b5a2b);
+  transform: translate(-50%, -50%) rotate(0deg);
+  transform-origin: center center;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+  z-index: 1;
+  border-radius: 15px;
+}
+
+.spiral-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transform-style: preserve-3d;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.website-item {
+  position: absolute;
+  opacity: 0;
+  transform-style: preserve-3d;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+  margin: 10px 0;
+}
+
+.website-content {
+  padding: 15px 25px;
+  background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+  color: white;
+  font-family: 'Arial', sans-serif;
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+  transform: translateZ(25px);
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 200px;
+  text-align: center;
+}
+
+.website-item.active .website-content {
+  background: linear-gradient(135deg, #ff8a00 0%, #e52e71 100%);
+  box-shadow: 0 0 30px rgba(255, 138, 0, 0.7);
+  transform: translateZ(35px) scale(1.1);
+}
+
+.website-url {
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.website-name {
+  font-size: 0.9rem;
+  opacity: 0.9;
+  font-style: italic;
+}
+
+.connector {
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  width: 4px;
+  height: 40px;
+  background: linear-gradient(to top, #6a11cb, #2575fc);
+  transform: translateX(-50%);
+  z-index: -1;
+}
+
+.website-item.active .connector {
+  background: linear-gradient(to top, #ff8a00, #e52e71);
+}
+
+.website-item:hover .website-content {
+  transform: translateZ(40px) scale(1.15);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+}
+
+.scroll-indicator {
+  position: fixed;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+  text-align: center;
+  font-family: 'Arial', sans-serif;
+  z-index: 100;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 10px 20px;
+  border-radius: 20px;
+  backdrop-filter: blur(5px);
+}
+
+.scroll-arrow {
+  width: 30px;
+  height: 30px;
+  margin: 0 auto 10px;
+  border-right: 3px solid white;
+  border-bottom: 3px solid white;
+  transform: rotate(45deg);
+  animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0) rotate(45deg);
+  }
+  40% {
+    transform: translateY(-10px) rotate(45deg);
+  }
+  60% {
+    transform: translateY(-5px) rotate(45deg);
+  }
+}
+
+.active-indicator {
+  position: fixed;
+  top: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+  text-align: center;
+  font-family: 'Arial', sans-serif;
+  z-index: 100;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 10px 20px;
+  border-radius: 20px;
+  backdrop-filter: blur(5px);
+}
+
+.active-text {
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+/* Responsive design */
+@media (max-width: 1024px) {
+  .website-content {
+    padding: 12px 20px;
+    min-width: 180px;
+  }
+  
+  .website-url {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .spiral-showcase {
+    height: 400vh;
+  }
+  
+  .central-pole {
+    width: 20px;
+  }
+  
+  .website-content {
+    padding: 10px 15px;
+    min-width: 160px;
+  }
+  
+  .website-url {
+    font-size: 0.9rem;
+  }
+  
+  .website-name {
+    font-size: 0.8rem;
+  }
+  
+  .scroll-indicator, .active-indicator {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .spiral-showcase {
+    height: 300vh;
+  }
+  
+  .central-pole {
+    width: 15px;
+  }
+  
+  .website-content {
+    padding: 8px 12px;
+    min-width: 140px;
+  }
+  
+  .website-url {
+    font-size: 0.8rem;
+  }
+  
+  .website-name {
+    display: none;
+  }
+  
+  .scroll-indicator, .active-indicator {
+    width: 90%;
+    padding: 8px 15px;
+    font-size: 0.8rem;
+  }
+  
+  .scroll-arrow {
+    width: 20px;
+    height: 20px;
+  }
+}

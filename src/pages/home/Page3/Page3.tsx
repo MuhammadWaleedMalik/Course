@@ -1,162 +1,78 @@
-import  { useEffect, useRef } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import './Page3.scss';
-
-gsap.registerPlugin(ScrollTrigger);
+import { useGSAP } from '@gsap/react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/all';
+import { useRef, useEffect } from 'react';
+import ProjectCard from '../../../components/Projects/ProjectCard';
 
 const Page3 = () => {
-  const mainHeadingRef = useRef(null);
-  const subHeadingsRef = useRef(null);
-  const coursesRef = useRef<(HTMLDivElement | null)[]>([]);
-  const containerRef = useRef(null);
-  const pageRef = useRef(null);
+  const projects = [{
+    image1: 'https://k72.ca/uploads/caseStudies/PJC/Thumbnails/PJC_SiteK72_Thumbnail_1280x960-1280x960.jpg',
+    image2: 'https://k72.ca/uploads/caseStudies/WIDESCAPE/WS---K72.ca---Thumbnail-1280x960.jpg'
+  }, {
+    image1: 'https://k72.ca/uploads/caseStudies/OKA/OKA_thumbnail-1280x960.jpg',
+    image2: 'https://k72.ca/uploads/caseStudies/Opto/thumbnailimage_opto-1280x960.jpg'
+  }, {
+    image1: 'https://k72.ca/uploads/caseStudies/LAMAJEURE_-_Son_sur_mesure/chalaxeur-thumbnail_img-1280x960.jpg',
+    image2: 'https://k72.ca/uploads/caseStudies/SHELTON/thumbnailimage_shelton-1280x960.jpg'
+  }];
 
- const courses = [
-  {
-    title: 'Frontend Development',
-    description: 'Master HTML, CSS, JavaScript, React, and modern frontend frameworks to build responsive web interfaces',
-    duration: '12 Weeks'
-  },
-  {
-    title: 'Backend Development',
-    description: 'Build scalable server-side applications with Node.js, Express, databases, and REST APIs',
-    duration: '14 Weeks'
-  }
-];
-
-  // Initialize refs - GSAP CODE REMAINS EXACTLY AS YOU WROTE IT
+  const containerRef = useRef<HTMLDivElement>(null);
+  
+  // Preload project images
   useEffect(() => {
-    const triggers: string[] = [];
-
-    // Main heading animation - YOUR ORIGINAL CODE
-    const t1 = gsap.timeline({
-      scrollTrigger: {
-        trigger: containerRef.current,
-        start: "top end",
-        end: "end top",
-        scrub: 1,
-        markers: true,
-        id: "t1"
-      }
+    const allImages = projects.flatMap(project => [project.image1, project.image2]);
+    
+    allImages.forEach((src) => {
+      const img = new Image();
+      img.src = src;
     });
-    triggers.push("t1");
-
-    t1.fromTo(mainHeadingRef.current,
-      { x: 0, y: 0, scale: 1.5, opacity: 1 },
-      { 
-        x: '-=430',
-        y: '+=150',
-        scale: 0.6,
-        duration: 3,
-        scrub: 5, 
-        ease: "power2.out"
-      }
-    );
-
-    // Sub-headings animation - YOUR ORIGINAL CODE
-    const t2 = gsap.timeline({
-      scrollTrigger: {
-        trigger: containerRef.current,
-        start: "top top",
-        end: "end top",
-        scrub: 3,
-        markers: false,
-        id: "t2"
-      }
-    });
-    triggers.push("t2");
-
-    t2.fromTo(subHeadingsRef.current,
-      { x: -700, opacity: 0, y: 150 },
-      { 
-        x: -37,
-        y: 151,
-        opacity: 1,
-        delay: 0.4,
-        duration: 0.8,
-        ease: "back.out(1.2)"
-      }
-    );
-
-    // Courses animation - YOUR ORIGINAL CODE
-    const t3 = gsap.timeline({
-      scrollTrigger: {
-        trigger: containerRef.current,
-        start: "end top",
-        end: "top end",
-        scrub: 1,
-        markers: false,
-        id: "t3"
-      }
-    });
-    triggers.push("t3");
-
-    t3.fromTo(coursesRef.current,
-      { x: +140, opacity: 0 },
-      { 
-        x: +0,
-        opacity: 1,
-        duration: 3.6,
-        delay: 3,
-        stagger: 0.15,
-        ease: "power2.out"
-      }
-    );
-
-    // ONLY ADDITION: Adjust container height based on content
-    const calculateHeight = () => {
-      const baseHeight = window.innerHeight;
-      const extraSpace = courses.length > 2 ? (courses.length - 2) * 120 : 0;
-      gsap.set(pageRef.current, { height: baseHeight + extraSpace });
-    };
-
-    calculateHeight();
-    window.addEventListener('resize', calculateHeight);
-
-    return () => {
-      triggers.forEach(id => ScrollTrigger.getById(id)?.kill());
-      window.removeEventListener('resize', calculateHeight);
-    };
   }, []);
 
-  return (
-    <div className="page3-container" ref={containerRef}>
-      {/* ONLY CHANGE: Added overflow hidden to contain absolutely positioned elements */}
-      <div className="page3" ref={pageRef} style={{ overflow: 'hidden' }}>
-        <h1 className="main-heading" ref={mainHeadingRef}>Our Courses</h1>
-        
-        <div className="sub-headings" ref={subHeadingsRef}>
-          <h3>Professional Certifications</h3>
-          <h3>Industry Training Programs</h3>
-        </div>
+  useGSAP(() => {
+    // Kill any existing ScrollTriggers to avoid conflicts
+    ScrollTrigger.getAll().forEach(trigger => {
+      if (trigger.trigger === containerRef.current || 
+          trigger.vars.trigger === '.lol') {
+        trigger.kill();
+      }
+    });
 
-        {/* ONLY CHANGE: Added scrollable container for courses */}
-        <div className="courses-scroll-container">
-          <div className="courses-container">
-            {courses.map((course, index) => (
-              <div 
-                className="course-card"
-                key={`${course.title}-${index}`}
-                ref={el => coursesRef.current[index] = el}
-              >
-                <h4>{course.title}</h4>
-                <p>{course.description}</p>
-                <div className="course-meta">
-                  <span className="duration">{course.duration}</span>
-                  &nbsp;&nbsp;
-                  <a 
-                    href="#join" 
-                    className="join-link"
-                    onClick={(e) => e.preventDefault()}
-                  >
-                    Join Course
-                  </a>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
+    // Set up the hero animation
+    gsap.from('.hero', {
+      height: '100px',
+      stagger: {
+        amount: 0.4
+      },
+      scrollTrigger: {
+        trigger: '.lol',
+        start: 'top 100%',
+        end: 'top -150%',
+        scrub: true,
+        markers: false, // Set to true for debugging if needed
+        invalidateOnRefresh: true
+      }
+    });
+
+    // Refresh ScrollTrigger after setup
+    setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 100);
+
+  }, { scope: containerRef });
+
+  return (
+    <div ref={containerRef} className='lg:p-4 p-2 mb-[10vh]'>
+      <div className='pt-[45vh]'>
+        <h2 className='font-[font2] lg:text-[9.5vw] text-7xl uppercase'>Projets</h2>
+      </div>
+      <div className='-lg:mt-0 lol'>
+        {projects.map(function (elem, idx) {
+          return (
+            <div key={idx} className='hero w-full lg:h-[850px] mb-0 flex lg:flex-row flex-col lg:gap-4 gap-2'>
+              <ProjectCard image1={elem.image1} image2={elem.image2} />
+            </div>
+          );
+        })}
       </div>
     </div>
   );

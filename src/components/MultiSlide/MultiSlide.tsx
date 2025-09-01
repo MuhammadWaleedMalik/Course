@@ -1,240 +1,116 @@
-import React, { useEffect, useRef, useState, useCallback, useMemo } from 'react';
-import './MultiSlide.scss';
+import React, { useEffect, useRef } from 'react';
+import gsap from 'gsap';
+import './ImageCarousel.scss';
 
-interface BoxPosition {
-  X: number;
-  Y: number;
-}
+const ImageCarousel: React.FC = () => {
+  const ringRef = useRef<HTMLDivElement>(null);
+  let xPos = 0;
 
-interface BoxItem {
-  pos: BoxPosition;
-  img: string;
-  DOMElement?: HTMLDivElement;
-}
+  // Array to hold your custom image URLs
+  const imageUrls = [
+    'https://your-image-url-1.jpg',
+    'https://your-image-url-2.jpg',
+    'https://your-image-url-3.jpg',
+    'https://your-image-url-4.jpg',
+    'https://your-image-url-5.jpg',
+    'https://your-image-url-6.jpg',
+    'https://your-image-url-7.jpg',
+    'https://your-image-url-8.jpg',
+    'https://your-image-url-9.jpg',
+    'https://your-image-url-10.jpg'
+  ];
 
-const MultiSlide: React.FC = () => {
-  // Desktop constants
-  const DESKTOP_UNIT = 250;
-  const DESKTOP_MAX_X = 40;
-  const DESKTOP_MIN_X = -3;
-  const DESKTOP_MAX_Y = 4;
-  const DESKTOP_MIN_Y = -3;
+  useEffect(() => {
+    // GSAP timeline setup
+    gsap.timeline()
+      .set(ringRef.current, { rotationY: 180, cursor: 'grab' })
+      .set('.img', {
+        rotateY: (i: number) => i * -36,
+        transformOrigin: '50% 50% 500px',
+        z: -500,
+        backgroundImage: (i: number) => `url(${imageUrls[i]})`,
+        backgroundPosition: (i: number) => getBgPos(i),
+        backfaceVisibility: 'hidden'
+      })
+      .from('.img', {
+        duration: 1.5,
+        y: 200,
+        opacity: 0,
+        stagger: 0.1,
+        ease: 'expo'
+      })
+      .add(() => {
+        const images = document.querySelectorAll('.img');
+        images.forEach((img) => {
+          img.addEventListener('mouseenter', (e) => {
+            gsap.to('.img', {
+              opacity: (i: number, t: HTMLElement) => (t === e.currentTarget ? 1 : 0.5),
+              ease: 'power3'
+            });
+          });
+          img.addEventListener('mouseleave', () => {
+            gsap.to('.img', { opacity: 1, ease: 'power2.inOut' });
+          });
+        });
+      }, '-=0.5');
 
-  // Mobile constants
-  const MOBILE_UNIT = 120;
-  const MOBILE_MAX_X = 3;
-  const MOBILE_MIN_X = -1;
-  const MOBILE_MAX_Y = 3;
-  const MOBILE_MIN_Y = 0;
+    // Event handlers for drag functionality
+    const dragStart = (e: MouseEvent | TouchEvent) => {
+      const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX;
+      xPos = Math.round(clientX);
+      gsap.set(ringRef.current, { cursor: 'grabbing' });
+      window.addEventListener('mousemove', drag);
+      window.addEventListener('touchmove', drag);
+    };
 
-  // State
-  const [registeredBoxes, setRegisteredBoxes] = useState<BoxItem[]>([]);
-  const [slidePosX, setSlidePosX] = useState<number>(0);
-  const [slidePosY, setSlidePosY] = useState<number>(0);
-  const [imageIndex, setImageIndex] = useState<number>(0);
-  const [isMobile, setIsMobile] = useState<boolean>(false);
-  
-  const figureRef = useRef<HTMLDivElement>(null);
+    const drag = (e: MouseEvent | TouchEvent) => {
+      const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX;
+      gsap.to(ringRef.current, {
+        rotationY: `-=${(Math.round(clientX) - xPos) % 360}`,
+        onUpdate: () => {
+          gsap.set('.img', { backgroundPosition: (i: number) => getBgPos(i) });
+        }
+      });
+      xPos = Math.round(clientX);
+    };
 
-  // Sample images
-  const sampleImages = useMemo(() => [
-    'https://picsum.photos/400/400?random=1',
-    'https://picsum.photos/400/400?random=2',
-    'https://picsum.photos/400/400?random=3',
-    'https://picsum.photos/400/400?random=4',
-    'https://picsum.photos/400/400?random=5',
-    'https://picsum.photos/400/400?random=6',
-    'https://picsum.photos/400/400?random=7',
-    'https://picsum.photos/400/400?random=8',
-  ], []);
+    const dragEnd = () => {
+      window.removeEventListener('mousemove', drag);
+      window.removeEventListener('touchmove', drag);
+      gsap.set(ringRef.current, { cursor: 'grab' });
+    };
 
-  // Debounced resize handler
-  const debounce = useCallback((fn: () => void, delay: number) => {
-    let timeout: NodeJS.Timeout;
+    window.addEventListener('mousedown', dragStart);
+    window.addEventListener('touchstart', dragStart);
+    window.addEventListener('mouseup', dragEnd);
+    window.addEventListener('touchend', dragEnd);
+
+    // Cleanup event listeners on component unmount
     return () => {
-      clearTimeout(timeout);
-      timeout = setTimeout(fn, delay);
+      window.removeEventListener('mousedown', dragStart);
+      window.removeEventListener('touchstart', dragStart);
+      window.removeEventListener('mouseup', dragEnd);
+      window.removeEventListener('touchend', dragEnd);
+      window.removeEventListener('mousemove', drag);
+      window.removeEventListener('touchmove', drag);
     };
   }, []);
 
-  // Handle resize and mobile detection
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.matchMedia("(max-width: 768px)").matches);
-    };
-
-    const debouncedCheckMobile = debounce(checkMobile, 200);
-    window.addEventListener('resize', debouncedCheckMobile);
-    checkMobile();
-
-    return () => window.removeEventListener('resize', debouncedCheckMobile);
-  }, [debounce]);
-
-  // Initialize boxes
-  useEffect(() => {
-    const unit = isMobile ? MOBILE_UNIT : DESKTOP_UNIT;
-    const boxes: BoxItem[] = isMobile
-      ? [
-          { pos: { X: -1, Y: 2 }, img: getNextImage() },
-          { pos: { X: 0, Y: 2 }, img: getNextImage() },
-          { pos: { X: 1, Y: 2 }, img: getNextImage() },
-          { pos: { X: 2, Y: 2 }, img: getNextImage() },
-          { pos: { X: 3, Y: 2 }, img: getNextImage() },
-          { pos: { X: 2, Y: 1 }, img: getNextImage() },
-          { pos: { X: 2, Y: 0 }, img: getNextImage() },
-          { pos: { X: 2, Y: 3 }, img: getNextImage() },
-        ]
-      : [
-          { pos: { X: -2, Y: 2 }, img: getNextImage() },
-          { pos: { X: -1, Y: 2 }, img: getNextImage() },
-          { pos: { X: 0, Y: 2 }, img: getNextImage() },
-          { pos: { X: 1, Y: 2 }, img: getNextImage() },
-          { pos: { X: 2, Y: 2 }, img: getNextImage() },
-          { pos: { X: 3, Y: 2 }, img: getNextImage() },
-          { pos: { X: 4, Y: 2 }, img: getNextImage() },
-          { pos: { X: 2, Y: -2 }, img: getNextImage() },
-          { pos: { X: 2, Y: -1 }, img: getNextImage() },
-          { pos: { X: 2, Y: 0 }, img: getNextImage() },
-          { pos: { X: 2, Y: 1 }, img: getNextImage() },
-          { pos: { X: 2, Y: 3 }, img: getNextImage() },
-          { pos: { X: 2, Y: 4 }, img: getNextImage() },
-        ];
-
-    setRegisteredBoxes(boxes);
-    initializeBoxElements(boxes, unit);
-  }, [isMobile]);
-
-  const getNextImage = useCallback(() => {
-    const nextIndex = (imageIndex + 1) % sampleImages.length;
-    setImageIndex(nextIndex);
-    return sampleImages[nextIndex];
-  }, [imageIndex, sampleImages]);
-
-  const initializeBoxElements = useCallback((boxes: BoxItem[], unit: number) => {
-    if (!figureRef.current) return;
-
-    // Clear existing elements
-    figureRef.current.innerHTML = '';
-
-    const updatedBoxes = boxes.map(box => {
-      const DOMElement = document.createElement('div');
-      DOMElement.className = 'box';
-      DOMElement.style.left = `${(box.pos.X * unit) - unit}px`;
-      DOMElement.style.top = `${(box.pos.Y * unit) - unit}px`;
-      DOMElement.setAttribute('data-pos', `${box.pos.X}${box.pos.Y}`);
-
-      const img = document.createElement('img');
-      img.src = box.img;
-      img.alt = `Image at position ${box.pos.X},${box.pos.Y}`;
-      img.loading = 'lazy';
-      DOMElement.appendChild(img);
-
-      figureRef.current?.appendChild(DOMElement);
-
-      return { ...box, DOMElement };
-    });
-
-    setRegisteredBoxes(updatedBoxes);
-  }, []);
-
-  const setPosition = useCallback((box: BoxItem, axis: 'X' | 'Y', val: number) => {
-    if (!box?.DOMElement) return;
-
-    const unit = isMobile ? MOBILE_UNIT : DESKTOP_UNIT;
-    const newPos = { ...box.pos, [axis]: val };
-    box.pos = newPos;
-
-    if (axis === 'X') {
-      box.DOMElement.style.left = `${(newPos.X * unit) - unit}px`;
-    } else if (axis === 'Y') {
-      box.DOMElement.style.top = `${(newPos.Y * unit) - unit}px`;
-    }
-
-    box.DOMElement.setAttribute('data-pos', `${newPos.X}${newPos.Y}`);
-  }, [isMobile]);
-
-  const updateImage = useCallback((box: BoxItem) => {
-    if (!box?.DOMElement?.firstChild) return;
-    
-    const imgElement = box.DOMElement.firstChild as HTMLImageElement;
-    imgElement.src = getNextImage();
-  }, [getNextImage]);
-
-  const slide = useCallback((axis: 'X' | 'Y', dir: number) => {
-    const updatedBoxes = [...registeredBoxes];
-    const maxX = isMobile ? MOBILE_MAX_X : DESKTOP_MAX_X;
-    const minX = isMobile ? MOBILE_MIN_X : DESKTOP_MIN_X;
-    const maxY = isMobile ? MOBILE_MAX_Y : DESKTOP_MAX_Y;
-    const minY = isMobile ? MOBILE_MIN_Y : DESKTOP_MIN_Y;
-
-    if (axis === 'Y') {
-      if ((dir > 0 && slidePosY < maxY) || (dir < 0 && slidePosY > minY)) {
-        updatedBoxes.forEach(box => {
-          if (box.pos.X === 2) {
-            setPosition(box, axis, box.pos.Y + dir);
-            updateImage(box);
-          }
-        });
-        setSlidePosY(prev => prev + dir);
-      }
-    } else if (axis === 'X') {
-      if ((dir > 0 && slidePosX < maxX) || (dir < 0 && slidePosX > minX)) {
-        updatedBoxes.forEach(box => {
-          if (box.pos.Y === 2) {
-            setPosition(box, axis, box.pos.X + dir);
-            updateImage(box);
-          }
-        });
-        setSlidePosX(prev => prev + dir);
-      }
-    }
-
-    setRegisteredBoxes(updatedBoxes);
-  }, [isMobile, registeredBoxes, slidePosX, slidePosY, setPosition, updateImage]);
+  const getBgPos = (i: number): string => {
+    return `${100 - gsap.utils.wrap(0, 360, gsap.getProperty(ringRef.current, 'rotationY') - 180 - i * 36) / 360 * 500}px 0px`;
+  };
 
   return (
-    <div className="multi-slide-container">
-      <div id="multiSlide" className="multiSlide" ref={figureRef}></div>
-      <nav id="multiSlideNav" className="multiSlideNav">
-        <button 
-          id="top" 
-          className="navButton"
-          onClick={(e) => {
-            e.preventDefault();
-            slide('Y', -1);
-          }}
-          aria-label="Slide up"
-        >↑</button>
-        <button 
-          id="bottom" 
-          className="navButton"
-          onClick={(e) => {
-            e.preventDefault();
-            slide('Y', 1);
-          }}
-          aria-label="Slide down"
-        >↓</button>
-        <button 
-          id="left" 
-          className="navButton"
-          onClick={(e) => {
-            e.preventDefault();
-            slide('X', -1);
-          }}
-          aria-label="Slide left"
-        >←</button>
-        <button 
-          id="right" 
-          className="navButton"
-          onClick={(e) => {
-            e.preventDefault();
-            slide('X', 1);
-          }}
-          aria-label="Slide right"
-        >→</button>
-      </nav>
+    <div className="stage">
+      <div className="container">
+        <div className="ring" ref={ringRef}>
+          {imageUrls.map((_, index) => (
+            <div key={index} className="img"></div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 };
 
-export default React.memo(MultiSlide);
+export default ImageCarousel;
