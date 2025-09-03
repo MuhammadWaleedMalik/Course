@@ -16,7 +16,7 @@ const Page3 = () => {
     image2: 'https://k72.ca/uploads/caseStudies/SHELTON/thumbnailimage_shelton-1280x960.jpg'
   }];
 
-  const containerRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef(null);
   
   // Preload project images
   useEffect(() => {
@@ -29,14 +29,6 @@ const Page3 = () => {
   }, []);
 
   useGSAP(() => {
-    // Kill any existing ScrollTriggers to avoid conflicts
-    ScrollTrigger.getAll().forEach(trigger => {
-      if (trigger.trigger === containerRef.current || 
-          trigger.vars.trigger === '.lol') {
-        trigger.kill();
-      }
-    });
-
     // Set up the hero animation
     gsap.from('.hero', {
       height: '100px',
@@ -48,16 +40,19 @@ const Page3 = () => {
         start: 'top 100%',
         end: 'top -150%',
         scrub: true,
-        markers: false, // Set to true for debugging if needed
+        markers: false,
         invalidateOnRefresh: true
       }
     });
 
-    // Refresh ScrollTrigger after setup
-    setTimeout(() => {
-      ScrollTrigger.refresh();
-    }, 100);
-
+    return () => {
+      ScrollTrigger.getAll().forEach(trigger => {
+        if (trigger.trigger === containerRef.current || 
+            trigger.vars.trigger === '.lol') {
+          trigger.kill();
+        }
+      });
+    };
   }, { scope: containerRef });
 
   return (

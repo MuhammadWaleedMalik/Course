@@ -1,348 +1,67 @@
-@import url("https://api.fontshare.com/v2/css?f[]=archivo@100,200,300,400,500,600,700,800,900&f[]=clash-display@200,300,400,500,600,700&display=swap");
+@import "../../../data/colors/theme.scss";
 
-.page6-container
- {
-  --slide-width: min(23vw, 400px);
-  --slide-aspect: 2 / 3;
-  --slide-transition-duration: 800ms;
-  --slide-transition-easing: ease;
-  --font-archivo: "Archivo", sans-serif;
-  --font-clash-display: "Clash Display", sans-serif;
-  position: relative;
-  left: 1.5%;
-  width: 97%;
-  height: 100vh;
-  margin: 0;
-  padding: 0;
+.page6 {
+  width: 100%;
+  min-height: 50vh;
+  background-color: $background-dark;
+  padding: 5rem 1rem;
+  border-top-left-radius: 1.5rem;
+  border-top-right-radius: 2rem;
   overflow: hidden;
-  isolation: isolate;
-  border-radius: 50px;
-  
-  /* Isolated background container */
-  .page6-bg-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -2;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  @media (max-width: 768px) {
+    padding: 3rem 0.5rem;
+    min-height: 40vh;
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1.25rem;
   }
 
-
-  
-  button {
-    border: none;
-    background: none;
-    cursor: pointer;
-    
-    &:focus {
-      outline: none;
-      border: none;
-    }
+  @media (max-width: 480px) {
+    padding: 2rem 0.5rem;
+    min-height: 30vh;
   }
+}
 
-  .slider {
-    position: relative;
-    width: calc(3 * var(--slide-width));
-    height: calc(100vh - 4rem);
-    margin: 2rem auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+.text-container {
+  display: flex;
+  overflow: hidden;
+  white-space: nowrap;
+  border-top: 2px solid $primary-color-4;
+  border-bottom: 2px solid $primary-color-4;
+  padding: 2.5rem 0;
+  width: 100%;
+}
 
-  .slider--btn {
-    --size: 40px;
-    position: absolute;
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    opacity: 0.7;
-    transition: opacity 250ms cubic-bezier(0.215, 0.61, 0.355, 1);
-    z-index: 999;
+.marquee-inner {
+  display: flex;
+  gap: 4rem; // Increased gap to prevent overlap
+  align-items: center;
 
-    & svg {
-      width: var(--size);
-      height: var(--size);
-      stroke: white;
-    }
+  .marquee-link {
+    font-size: 22vw;
+    line-height: 1;
+    font-family: $heading-font;
+    color: $primary-color-2;
+    font-weight: 300;
+    text-transform: uppercase;
+    text-decoration: none;
+    flex-shrink: 0; // Prevent text compression
+    transition: color 0.3s ease;
 
     &:hover {
-      opacity: 1;
+      color: $primary-color-4; // Hover effect for interactivity
     }
 
-    &.slider--btn__prev {
-      left: 1rem;
+    @media (max-width: 768px) {
+      font-size: 15vw;
     }
 
-    &.slider--btn__next {
-      right: 1rem;
-    }
-  }
-
-  .slides__wrapper {
-    width: 100%;
-    height: 100%;
-    display: grid;
-    place-items: center;
-
-    & > * {
-      grid-area: 1 / -1;
-    }
-  }
-
-  .slides,
-  .slides--infos {
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    display: grid;
-    place-items: center;
-
-    & > * {
-      grid-area: 1 / -1;
-    }
-  }
-
-  .slide {
-    --slide-tx: 0px;
-    --slide-ty: 0vh;
-    --padding: 0px;
-    --offset: 0;
-
-    position: relative;
-    width: var(--slide-width);
-    height: auto;
-    aspect-ratio: var(--slide-aspect);
-    user-select: none;
-    perspective: 800px;
-    transform: perspective(1000px)
-      translate3d(var(--slide-tx), var(--slide-ty), var(--slide-tz, 0))
-      rotateY(var(--slide-rotY)) scale(var(--slide-scale));
-    transition: transform var(--slide-transition-duration)
-      var(--slide-transition-easing);
-
-    &[data-current] {
-      --slide-scale: 1.2;
-      --slide-tz: 0px;
-      --slide-tx: 0px;
-      --slide-rotY: 0;
-      pointer-events: auto;
-      z-index: 20;
-    }
-
-    &[data-next] {
-      --slide-tx: calc(1 * var(--slide-width) * 1.07);
-      --slide-rotY: -45deg;
-      z-index: 10;
-    }
-
-    &[data-previous] {
-      --slide-tx: calc(-1 * var(--slide-width) * 1.07);
-      --slide-rotY: 45deg;
-      z-index: 10;
-    }
-
-    &:not([data-current]) {
-      --slide-scale: 1;
-      --slide-tz: 0;
-      pointer-events: none;
-    }
-
-    &[data-current] .slide--image {
-      filter: brightness(0.8);
-    }
-
-    &:not([data-current]) .slide--image {
-      filter: brightness(0.5);
-    }
-  }
-
-  .slide__inner {
-    --rotX: 0;
-    --rotY: 0;
-    --bgPosX: 0%;
-    --bgPosY: 0%;
-
-    position: relative;
-    left: calc(var(--padding) / 2);
-    top: calc(var(--padding) / 2);
-    width: calc(100% - var(--padding));
-    height: calc(100% - var(--padding));
-    transform-style: preserve-3d;
-    transform: rotateX(var(--rotX)) rotateY(var(--rotY));
-  }
-
-  .slide--image__wrapper {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-  }
-
-  .slide--image {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    object-fit: cover;
-    transform: translate(-50%, -50%) scale(1.25)
-      translate3d(var(--bgPosX), var(--bgPosY), 0);
-    transition: filter var(--slide-transition-duration)
-      var(--slide-transition-easing);
-  }
-
-  .slide__bg {
-    position: absolute; /* Changed from fixed to absolute */
-    top: -20%;
-    left: -20%;
-    width: 140%;
-    height: 140%;
-    background-image: var(--bg);
-    background-size: cover;
-    background-position: center center;
-    z-index: -1;
-    pointer-events: none;
-    transition: opacity var(--slide-transition-duration) ease,
-      transform var(--slide-transition-duration) ease;
-
-    &::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.366);
-    }
-
-    &:not([data-current]) {
-      opacity: 0;
-    }
-
-    &[data-previous] {
-      transform: translateX(-10%);
-    }
-
-    &[data-next] {
-      transform: translateX(10%);
-    }
-  }
-
-  .slide-info {
-    --padding: 0px;
-
-    position: relative;
-    width: var(--slide-width);
-    height: 100%;
-    aspect-ratio: var(--slide-aspect);
-    user-select: none;
-    perspective: 800px;
-    z-index: 100;
-
-    &[data-current] .slide-info--text span {
-      opacity: 1;
-      transform: translate3d(0, 0, 0);
-      transition-delay: 250ms;
-    }
-
-    &:not([data-current]) .slide-info--text span {
-      opacity: 0;
-      transform: translate3d(0, 100%, 0);
-      transition-delay: 0ms;
-    }
-  }
-
-  .slide-info__inner {
-    position: relative;
-    left: calc(var(--padding) / 2);
-    top: calc(var(--padding) / 2);
-    width: calc(100% - var(--padding));
-    height: calc(100% - var(--padding));
-    transform-style: preserve-3d;
-    transform: rotateX(var(--rotX)) rotateY(var(--rotY));
-  }
-
-  .slide-info--text__wrapper {
-    --z-offset: 45px;
-
-    position: absolute;
-    height: fit-content;
-    left: -15%;
-    bottom: 15%;
-    transform: translateZ(var(--z-offset));
-    z-index: 2;
-    pointer-events: none;
-  }
-
-  .slide-info--text {
-    font-family: var(--font-clash-display);
-    color: #fff;
-    overflow: hidden;
-
-    & span {
-      display: block;
-      white-space: nowrap;
-      transition: var(--slide-transition-duration) var(--slide-transition-easing);
-      transition-property: opacity, transform;
-    }
-
-    &[data-title],
-    &[data-subtitle] {
-      font-size: min(3cqw, 2.4rem);
-      font-weight: 800;
-      letter-spacing: 0.2cqw;
-      white-space: nowrap;
-      text-transform: uppercase;
-    }
-
-    &[data-subtitle] {
-      margin-left: 2cqw;
-      font-size: min(2.2cqw, 1.8rem);
-      font-weight: 600;
-    }
-
-    &[data-description] {
-      margin-left: 1cqw;
-      font-size: min(1.5cqw, 0.95rem);
-      font-family: var(--font-archivo);
-      font-weight: 300;
-    }
-  }
-
-  .loader {
-    position: fixed;
-    inset: 0;
-    display: grid;
-    place-items: center;
-    background: #000;
-    z-index: 1000;
-    opacity: 1;
-    transition: opacity 0.5s ease-out;
-
-    .loader__text {
-      font-family: var(--font-clash-display);
-      font-size: clamp(2rem, 2vw, 5rem);
-      font-weight: 800;
-      color: #fff;
-    }
-  }
-
-  .support {
-    position: absolute;
-    right: 10px;
-    bottom: 10px;
-    padding: 10px;
-    display: flex;
-    
-    a {
-      margin: 0 10px;
-      color: #fff;
-      font-size: 1.8rem;
-      backface-visibility: hidden;
-      transition: all 150ms ease;
-      
-      &:hover {
-        transform: scale(1.1);
-      }
+    @media (max-width: 480px) {
+      font-size: 10vw;
     }
   }
 }

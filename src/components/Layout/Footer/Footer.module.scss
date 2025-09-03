@@ -18,6 +18,11 @@
   grid-area: footer;
   min-height: 12rem;
   width: 100%;
+  
+  // Force GPU acceleration for smoother animations
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
 
   .bubbles {
     position: absolute;
@@ -27,6 +32,11 @@
     height: 1rem;
     background: var(--footer-background);
     filter: url("#blob");
+    
+    // Reduce animation strain on mobile
+    @media (max-width: 768px) {
+      animation: none;
+    }
 
     .bubble {
       position: absolute;
@@ -36,6 +46,13 @@
       animation: bubble-size var(--time, 4s) ease-in infinite var(--delay, 0s),
         bubble-move var(--time, 4s) ease-in infinite var(--delay, 0s);
       transform: translate(-50%, 100%);
+      transform: translate3d(-50%, 100%, 0); // Use 3D transforms for better performance
+      
+      // Reduce animation on mobile for better performance
+      @media (max-width: 768px) {
+        animation: bubble-size-mobile var(--time, 4s) ease-in infinite var(--delay, 0s),
+          bubble-move-mobile var(--time, 4s) ease-in infinite var(--delay, 0s);
+      }
     }
   }
 
@@ -48,6 +65,10 @@
     color: #F5F7FA;
     width: 100%;
     box-sizing: border-box;
+    
+    // Improve rendering performance
+    transform: translateZ(0);
+    will-change: transform;
 
     a {
       color: inherit;
@@ -79,10 +100,12 @@
 
       @media (max-width: 768px) {
         grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
       }
 
       @media (max-width: 480px) {
         grid-template-columns: 1fr;
+        gap: 1rem;
       }
     }
 
@@ -103,6 +126,11 @@
           height: 4rem;
           margin-bottom: 0.5rem;
           perspective: 1000px;
+          
+          @media (max-width: 768px) {
+            width: 3rem;
+            height: 3rem;
+          }
 
           .logoImage {
             width: 100%;
@@ -116,12 +144,20 @@
           font-weight: 700;
           margin: 0 0 0.25rem 0;
           color: white;
+          
+          @media (max-width: 768px) {
+            font-size: 1rem;
+          }
         }
 
         .brandSlogan {
           font-size: 0.8rem;
           margin: 0;
           opacity: 0.9;
+          
+          @media (max-width: 768px) {
+            font-size: 0.7rem;
+          }
         }
       }
 
@@ -129,6 +165,10 @@
         font-size: 0.8rem;
         margin-bottom: 1rem;
         max-width: 300px;
+        
+        @media (max-width: 768px) {
+          font-size: 0.7rem;
+        }
       }
 
       .socialIcons {
@@ -145,6 +185,11 @@
           border-radius: 50%;
           padding: 0.5rem;
           transition: all 0.2s ease;
+          
+          @media (max-width: 768px) {
+            width: 2rem;
+            height: 2rem;
+          }
         }
       }
 
@@ -153,6 +198,11 @@
         font-weight: 600;
         margin: 0 0 1rem 0;
         color: white;
+        
+        @media (max-width: 768px) {
+          font-size: 0.9rem;
+          margin: 0 0 0.75rem 0;
+        }
       }
 
       .linkList {
@@ -165,6 +215,14 @@
 
         li {
           margin: 0;
+        }
+        
+        .link {
+          font-size: 0.8rem;
+          
+          @media (max-width: 768px) {
+            font-size: 0.75rem;
+          }
         }
       }
 
@@ -190,6 +248,9 @@
             color: white;
             cursor: pointer;
             transition: all 0.2s ease;
+            
+            // Improve performance
+            transform: translateZ(0);
 
             &:hover {
               background: rgba(255, 255, 255, 0.2);
@@ -211,6 +272,17 @@
                 width: 2rem;
                 height: 2rem;
                 border-radius: 50%;
+                
+                @media (max-width: 768px) {
+                  width: 1.75rem;
+                  height: 1.75rem;
+                }
+              }
+              
+              .buttonText {
+                @media (max-width: 768px) {
+                  font-size: 0.8rem;
+                }
               }
             }
           }
@@ -221,6 +293,9 @@
             width: 100%;
             background: rgba(0, 0, 0, 0.1);
             border-radius: 0 0 0.5rem 0.5rem;
+            
+            // Improve performance
+            transform: translateZ(0);
 
             .dropdownItems {
               padding: 0.5rem;
@@ -249,17 +324,31 @@
                 height: 2rem;
                 border-radius: 50%;
                 flex-shrink: 0;
+                
+                @media (max-width: 768px) {
+                  width: 1.75rem;
+                  height: 1.75rem;
+                }
               }
 
               .contactText {
                 font-weight: 500;
                 margin: 0;
+                font-size: 0.8rem;
+                
+                @media (max-width: 768px) {
+                  font-size: 0.75rem;
+                }
               }
 
               .contactSubtext {
                 font-size: 0.7rem;
                 opacity: 0.8;
                 margin: 0.2rem 0 0 0;
+                
+                @media (max-width: 768px) {
+                  font-size: 0.65rem;
+                }
               }
             }
           }
@@ -272,6 +361,11 @@
       margin-top: 2rem;
       padding-top: 1rem;
       border-top: 1px solid rgba(255, 255, 255, 0.1);
+      
+      @media (max-width: 768px) {
+        margin-top: 1.5rem;
+        padding-top: 0.75rem;
+      }
 
       .copyrightContent {
         display: flex;
@@ -288,6 +382,11 @@
           margin: 0;
           font-size: 0.75rem;
           opacity: 0.8;
+          
+          @media (max-width: 768px) {
+            font-size: 0.7rem;
+            text-align: center;
+          }
         }
 
         .legalLinks {
@@ -296,8 +395,20 @@
           flex-wrap: wrap;
           justify-content: center;
 
+          @media (max-width: 768px) {
+            gap: 0.75rem;
+          }
+          
           @media (min-width: 768px) {
             justify-content: flex-end;
+          }
+          
+          .legalLink {
+            font-size: 0.75rem;
+            
+            @media (max-width: 768px) {
+              font-size: 0.7rem;
+            }
           }
         }
       }
@@ -324,3 +435,38 @@
     bottom: var(--distance, 10rem);
   }
 }
+
+// Simplified animations for mobile
+@keyframes bubble-size-mobile {
+  0%, 75% {
+    width: calc(var(--size, 4rem) * 0.7);
+    height: calc(var(--size, 4rem) * 0.7);
+  }
+  100% {
+    width: 0rem;
+    height: 0rem;
+  }
+}
+
+@keyframes bubble-move-mobile {
+  0% {
+    bottom: -4rem;
+  }
+  100% {
+    bottom: calc(var(--distance, 10rem) * 0.7);
+  }
+}
+
+// Reduce motion for users who prefer it
+@media (prefers-reduced-motion: reduce) {
+  .bubble {
+    animation: none !important;
+  }
+  
+  .footerSection {
+    * {
+      transition: none !important;
+      animation: none !important;
+    }
+  }
+} 

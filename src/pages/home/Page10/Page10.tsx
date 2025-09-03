@@ -38,10 +38,10 @@ const Page10 = () => {
 
         {/* Responsive heading */}
         <Link 
-            to={"/signup"}
+            to={"/courses"}
             className="uppercase top-[50%] z-10 absolute w-full text-center px-4 bottom-1/4 md:bottom-48 left-1/2 -translate-x-1/2 font-[myFont1] text-4xl sm:text-5xl md:text-[6vw] text-white leading-tight">
 
-                Join Us Now                
+                Start Learning                
         </Link>
 
       

@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { Link } from "react-router-dom";
 import { motion, useAnimation, AnimatePresence } from "framer-motion";
 import { FaPhoneAlt, FaFacebook, FaWhatsapp, FaChevronDown, FaLinkedin, FaInstagram } from "react-icons/fa";
@@ -9,6 +9,21 @@ const Footer: React.FC = () => {
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const controls = useAnimation();
   const footerRef = useRef<HTMLDivElement | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    // Check if device is mobile
+    const checkIsMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    
+    checkIsMobile();
+    window.addEventListener('resize', checkIsMobile);
+    
+    return () => {
+      window.removeEventListener('resize', checkIsMobile);
+    };
+  }, []);
 
   const colors = {
     primary: '#ED5565',
@@ -67,15 +82,18 @@ const Footer: React.FC = () => {
     }
   };
 
-  const toggleDropdown = (dropdown: string | null) => {
+  const toggleDropdown = useCallback((dropdown: string | null) => {
     setActiveDropdown(activeDropdown === dropdown ? null : dropdown);
-  };
+  }, [activeDropdown]);
 
-  const handleLinkClick = () => {
+  const handleLinkClick = useCallback(() => {
     window.scrollTo(0, 0);
-  };
+  }, []);
 
-  const bubbles = Array.from({ length: 228 }).map((_, i) => {
+  // Reduce number of bubbles on mobile for better performance
+  const bubbleCount = isMobile ? 50 : 228;
+  
+  const bubbles = Array.from({ length: bubbleCount }).map((_, i) => {
     const size = 2 + Math.random() * 4;
     const distance = 6 + Math.random() * 4;
     const position = -5 + Math.random() * 110;
@@ -114,16 +132,17 @@ const Footer: React.FC = () => {
                   <motion.div
                     className={styles.logoContainer}
                     style={{ transformStyle: "preserve-3d" }}
-                    whileHover={{ scale: 1.05 }}
+                    whileHover={{ scale: isMobile ? 1 : 1.05 }} // Disable hover effect on mobile
                   >
                     <img
                       src={websiteInfo.logo}
                       alt="website logo"
                       className={styles.logoImage}
                       style={{ backfaceVisibility: "visible" }}
+                      loading="lazy" // Lazy load the image
                     />
                   </motion.div>
-                  <motion.div whileHover={{ x: 3 }}>
+                  <motion.div whileHover={{ x: isMobile ? 0 : 3 }}> {/* Disable hover effect on mobile */}
                     <h2 className={styles.brandName}>
                       {websiteInfo.name}
                     </h2>
@@ -132,7 +151,7 @@ const Footer: React.FC = () => {
                     </p>
                   </motion.div>
                 </div>
-                <motion.p className={styles.brandDescription} whileHover={{ x: 3 }}>
+                <motion.p className={styles.brandDescription} whileHover={{ x: isMobile ? 0 : 3 }}> {/* Disable hover effect on mobile */}
          
                   <div className={styles.socialIcons}>
                     <motion.a
@@ -141,14 +160,14 @@ const Footer: React.FC = () => {
                       rel="noopener noreferrer"
                       className={styles.socialLink}
                       style={{ backgroundColor: `${colors.linkedinBlue}20` }}
-                      whileHover={{
+                      whileHover={isMobile ? {} : { // Conditional hover animation
                         y: -3,
                         backgroundColor: `${colors.linkedinBlue}50`,
                         scale: 1.2
                       }}
                       whileTap={{ scale: 0.95 }}
                     >
-                      <FaLinkedin size={46} color={colors.linkedinBlue} />
+                      <FaLinkedin size={isMobile ? 36 : 46} color={colors.linkedinBlue} /> {/* Smaller icons on mobile */}
                     </motion.a>
                     <motion.a
                       href={websiteInfo.instagram}
@@ -156,14 +175,14 @@ const Footer: React.FC = () => {
                       rel="noopener noreferrer"
                       className={styles.socialLink}
                       style={{ backgroundColor: `${colors.instagramPurple}20` }}
-                      whileHover={{
+                      whileHover={isMobile ? {} : {
                         y: -3,
                         backgroundColor: `${colors.instagramPurple}50`,
                         scale: 1.2
                       }}
                       whileTap={{ scale: 0.95 }}
                     >
-                      <FaInstagram size={46} color={colors.instagramPurple} />
+                      <FaInstagram size={isMobile ? 36 : 46} color={colors.instagramPurple} />
                     </motion.a>
                     <motion.a
                       href={websiteInfo.facebook}
@@ -171,14 +190,14 @@ const Footer: React.FC = () => {
                       rel="noopener noreferrer"
                       className={styles.socialLink}
                       style={{ backgroundColor: `${colors.facebookBlue}20` }}
-                      whileHover={{
+                      whileHover={isMobile ? {} : {
                         y: -3,
                         backgroundColor: `${colors.facebookBlue}50`,
                         scale: 1.2
                       }}
                       whileTap={{ scale: 0.95 }}
                     >
-                      <FaFacebook size={46} color={colors.facebookBlue} />
+                      <FaFacebook size={isMobile ? 36 : 46} color={colors.facebookBlue} />
                     </motion.a>
                   </div>
                 </motion.p>
@@ -194,12 +213,10 @@ const Footer: React.FC = () => {
                     { path: "/faqs", label: "FAQs" },
                     { path: "/collaborators", label: "Collaborators" },
                     { path: "/pricing", label: "Pricing" },
-           
-           
                   ].map((link, index) => (
                     <motion.li
                       key={index}
-                      whileHover={{ x: 5 }}
+                      whileHover={isMobile ? {} : { x: 5 }} // Disable hover effect on mobile
                       transition={{ type: "spring", stiffness: 300 }}
                     >
                       <Link
@@ -223,7 +240,7 @@ const Footer: React.FC = () => {
                   ].map((link, index) => (
                     <motion.li
                       key={index}
-                      whileHover={{ x: 5 }}
+                      whileHover={isMobile ? {} : { x: 5 }} // Disable hover effect on mobile
                       transition={{ type: "spring", stiffness: 300 }}
                     >
                       <a
@@ -278,7 +295,7 @@ const Footer: React.FC = () => {
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className={styles.contactItem}
-                                whileHover={{ x: 5 }}
+                                whileHover={isMobile ? {} : { x: 5 }} // Disable hover effect on mobile
                                 whileTap={{ scale: 0.95 }}
                               >
                                 <div className={styles.contactIcon} style={{ backgroundColor: colors.whatsappGreen }}>
@@ -303,7 +320,7 @@ const Footer: React.FC = () => {
               <div className={styles.copyrightContent}>
                 <motion.p
                   className={styles.copyrightText}
-                  whileHover={{ scale: 1.02 }}
+                  whileHover={isMobile ? {} : { scale: 1.02 }} // Disable hover effect on mobile
                   transition={{ type: "spring", stiffness: 400 }}
                 >
                   {`© ${new Date().getFullYear()} ${websiteInfo.name} All rights reserved.`}
@@ -316,7 +333,7 @@ const Footer: React.FC = () => {
                   ].map((link, index) => (
                     <motion.div
                       key={index}
-                      whileHover={{ y: -2 }}
+                      whileHover={isMobile ? {} : { y: -2 }} // Disable hover effect on mobile
                       transition={{ type: "spring", stiffness: 300 }}
                     >
                       <Link

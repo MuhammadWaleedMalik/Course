@@ -57,7 +57,7 @@ const Header = () => {
         <div className="left-section">
           <div className="logo-container">
             <img src="/path/to/logo.png" alt="Website Name" className="logo" />
-            <span className="website-name">Website Name</span>
+            <span className="website-name">Course Craft</span>
           </div>
         </div>
 

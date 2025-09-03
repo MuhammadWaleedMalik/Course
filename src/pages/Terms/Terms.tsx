@@ -28,7 +28,7 @@ const Terms: React.FC = () => {
       <div className={styles.termsContainer}>
         <div className={styles.charter}>
           <div className={styles.charterContent}>
-            <h2 className={styles.charterTitle}>[Your Coaching Website Name] Program Charter</h2>
+            <h2 className={styles.charterTitle}>Course Craft's Program Charter</h2>
             <p className={styles.lastUpdated}>Last Updated: August 14, 2025</p>
             {termsData.terms.map((term) => (
               <div key={term.id} className={styles.termSection}>

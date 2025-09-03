@@ -28,7 +28,7 @@ const Privacy: React.FC = () => {
       <div className={styles.privacyContainer}>
         <div className={styles.policy}>
           <div className={styles.policyContent}>
-            <h2 className={styles.policyTitle}>[Your Coaching Website Name] Privacy Policy</h2>
+            <h2 className={styles.policyTitle}>Course Craft's Privacy Policy</h2>
             <p className={styles.lastUpdated}>Last Updated: August 14, 2025</p>
             
             {privacyData.sections.map((section) => (

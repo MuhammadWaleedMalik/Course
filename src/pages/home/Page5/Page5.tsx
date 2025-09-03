@@ -4,10 +4,9 @@ import { ScrollTrigger } from 'gsap/all';
 import { useRef, useEffect, useState } from 'react';
 
 const Page5 = () => {
-  gsap.registerPlugin(ScrollTrigger);
-
-  const imageDivRef = useRef<HTMLDivElement>(null);
-  const imageRef = useRef<HTMLImageElement>(null);
+  const imageDivRef = useRef(null);
+  const imageRef = useRef(null);
+  const containerRef = useRef(null);
   const [imagesLoaded, setImagesLoaded] = useState(false);
 
   const imageArray = [
@@ -52,11 +51,6 @@ const Page5 = () => {
   useGSAP(() => {
     if (!imagesLoaded || !imageDivRef.current || !imageRef.current) return;
 
-    console.log('Page5 GSAP hook running with loaded images');
-
-    // Kill any existing ScrollTriggers to avoid duplicates
-    ScrollTrigger.getAll().forEach(trigger => trigger.kill());
-
     const setupScrollTrigger = () => {
       ScrollTrigger.matchMedia({
         // Desktop (≥ 1024px)
@@ -73,25 +67,15 @@ const Page5 = () => {
               scrub: 1,
               anticipatePin: 1,
               invalidateOnRefresh: true,
-              // markers: true, // Uncomment for debugging
               onUpdate: (self) => {
                 const imageIndex = Math.min(
                   Math.floor(self.progress * imageArray.length),
                   imageArray.length - 1
                 );
-                console.log('Desktop - Progress:', self.progress, 'Image:', imageIndex);
                 if (imageRef.current) {
                   imageRef.current.src = imageArray[imageIndex];
                 }
               },
-              onRefresh: () => {
-                // Force update on refresh
-                ScrollTrigger.getAll().forEach(trigger => {
-                  if (trigger.trigger === imageDivRef.current) {
-                    trigger.update();
-                  }
-                });
-              }
             },
           });
         },
@@ -109,25 +93,15 @@ const Page5 = () => {
               scrub: 1,
               anticipatePin: 1,
               invalidateOnRefresh: true,
-              // markers: true, // Uncomment for debugging
               onUpdate: (self) => {
                 const imageIndex = Math.min(
                   Math.floor(self.progress * imageArray.length),
                   imageArray.length - 1
                 );
-                console.log('Mobile - Progress:', self.progress, 'Image:', imageIndex);
                 if (imageRef.current) {
                   imageRef.current.src = imageArray[imageIndex];
                 }
               },
-              onRefresh: () => {
-                // Force update on refresh
-                ScrollTrigger.getAll().forEach(trigger => {
-                  if (trigger.trigger === imageDivRef.current) {
-                    trigger.update();
-                  }
-                });
-              }
             },
           });
         },
@@ -136,41 +110,30 @@ const Page5 = () => {
 
     setupScrollTrigger();
 
-    // Refresh ScrollTrigger after a short delay to ensure proper calculation
+    // Refresh ScrollTrigger after a short delay
     setTimeout(() => {
       ScrollTrigger.refresh();
     }, 100);
 
-    // Add resize listener to refresh ScrollTrigger on window resize
+    // Add resize listener
     const handleResize = () => {
       ScrollTrigger.refresh();
     };
 
     window.addEventListener('resize', handleResize);
 
-    // Cleanup on unmount
     return () => {
       window.removeEventListener('resize', handleResize);
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-      gsap.killTweensOf([imageDivRef.current, imageRef.current]);
+      ScrollTrigger.getAll().forEach((trigger) => {
+        if (trigger.trigger === imageDivRef.current) {
+          trigger.kill();
+        }
+      });
     };
-  }, { scope: imageDivRef, dependencies: [imagesLoaded] });
-
-  // Additional effect to refresh ScrollTrigger after component mounts
-  useEffect(() => {
-    if (imagesLoaded) {
-      // Refresh ScrollTrigger after images are loaded and component is mounted
-      const refreshTimer = setTimeout(() => {
-        ScrollTrigger.refresh();
-        console.log('ScrollTrigger refreshed after images loaded');
-      }, 300);
-
-      return () => clearTimeout(refreshTimer);
-    }
-  }, [imagesLoaded]);
+  }, { scope: containerRef, dependencies: [imagesLoaded] });
 
   return (
-    <div className="parent mb-40 overflow-hidden">
+    <div ref={containerRef} className="parent mb-0 overflow-hidden">
       <div id="page1" className="py-1 relative min-h-screen">
         <div
           ref={imageDivRef}

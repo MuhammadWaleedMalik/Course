@@ -21,7 +21,7 @@ const Page8 = () => {
   }, []);
 
   return (
-    <div className="bg-white p-4 md:p-6 h-screen relative">
+    <div  className="bg-white p-4 md:p-6 h-screen relative">
       <div className="h-full w-full bg-black overflow-hidden rounded-3xl md:rounded-[50px] relative">
 
         {/* Background video with responsive settings */}

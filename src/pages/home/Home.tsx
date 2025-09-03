@@ -1,73 +1,64 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState, lazy, Suspense } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import Page1 from './Page1/Page1';
-import Page2 from './Page2/Page2';
-import Page3 from './Page3/Page3';
-import Page4 from './Page4/Page4';
-import Page5 from './Page5/Page5';
-import Page7 from './Page7/Page7';
-import Page8 from './Page8/Page8';
-import Page9 from './Page9/Page9';  
-import './Home.scss';
+import { useGSAP } from '@gsap/react';
+import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner';
+
+// Lazy load page components
+const Page1 = lazy(() => import('./Page1/Page1'));
+const Page2 = lazy(() => import('./Page2/Page2'));
+const Page3 = lazy(() => import('./Page3/Page3'));
+const Page4 = lazy(() => import('./Page4/Page4'));
+const Page5 = lazy(() => import('./Page5/Page5'));
+const Page6 = lazy(() => import('./Page6/Page6'));
+const Page7 = lazy(() => import('./Page7/Page7'));
+const Page8 = lazy(() => import('./Page8/Page8'));
+const Page9 = lazy(() => import('./Page9/Page9'));
+const Page10 = lazy(() => import('./Page10/Page10'));
 
 // Register GSAP plugins
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger, useGSAP);
 
-const Home = () => {
-  const containerRef = useRef(null);
-  const loaderRef = useRef(null);
+const Home: React.FC = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
   const [loading, setLoading] = useState(true);
   const [progress, setProgress] = useState(0);
 
-  // Preload critical assets
-  const preloadAssets = [
-    // Page5 images
-    'https://k72.ca/uploads/teamMembers/Carl_480x640-480x640.jpg',
-    'https://k72.ca/uploads/teamMembers/Olivier_480x640-480x640.jpg',
-    'https://k72.ca/uploads/teamMembers/Lawrence_480x640-480x640.jpg',
-    'https://k72.ca/uploads/teamMembers/HugoJoseph_480x640-480x640.jpg',
-    'https://k72.ca/uploads/teamMembers/ChantalG_480x640-480x640.jpg',
-    'https://k72.ca/uploads/teamMembers/MyleneS_480x640-480x640.jpg',
-    'https://k72.ca/uploads/teamMembers/SophieA_480x640-480x640.jpg',
-    'https://k72.ca/uploads/teamMembers/Claire_480x640-480x640.jpg',
-    'https://k72.ca/uploads/teamMembers/Michele_480X640-480x640.jpg',
-    'https://k72.ca/uploads/teamMembers/MEL_480X640-480x640.jpg',
-    'https://k72.ca/uploads/teamMembers/CAMILLE_480X640_2-480x640.jpg',
-    'https://k72.ca/uploads/teamMembers/MAXIME_480X640_2-480x640.jpg',
-    'https://k72.ca/uploads/teamMembers/MEGGIE_480X640_2-480x640.jpg',
-    'https://k72.ca/uploads/teamMembers/joel_480X640_3-480x640.jpg',
-    // Page8 video
-    'https://video.wixstatic.com/video/f1c650_988626917c6549d6bdc9ae641ad3c444/1080p/mp4/file.mp4',
-  ];
-
   useEffect(() => {
-    // Preload assets
+    // Only preload the most critical assets
+    const criticalAssets: string[] = [
+      // Only essential assets for initial view
+      "https://i.ibb.co/Q7t69BB3/4.png", // First image from Page1
+    ];
+
     let loadedCount = 0;
-    const totalAssets = preloadAssets.length;
+    const totalAssets = criticalAssets.length;
 
     if (totalAssets === 0) {
       setProgress(100);
-      setTimeout(() => setLoading(false), 1000);
+      setTimeout(() => setLoading(false), 500);
       return;
     }
 
-    preloadAssets.forEach((src) => {
+    // Load critical assets first
+    criticalAssets.forEach((src) => {
       if (src.endsWith('.mp4')) {
         const video = document.createElement('video');
         video.src = src;
         video.onloadeddata = () => {
           loadedCount++;
-          setProgress(Math.min((loadedCount / totalAssets) * 100, 100));
+          const newProgress = Math.min((loadedCount / totalAssets) * 100, 100);
+          setProgress(newProgress);
           if (loadedCount === totalAssets) {
-            setTimeout(() => setLoading(false), 600);
+            setTimeout(() => setLoading(false), 300);
           }
         };
         video.onerror = () => {
           loadedCount++;
-          setProgress(Math.min((loadedCount / totalAssets) * 100, 100));
+          const newProgress = Math.min((loadedCount / totalAssets) * 100, 100);
+          setProgress(newProgress);
           if (loadedCount === totalAssets) {
-            setTimeout(() => setLoading(false), 600);
+            setTimeout(() => setLoading(false), 300);
           }
         };
       } else {
@@ -75,25 +66,29 @@ const Home = () => {
         img.src = src;
         img.onload = () => {
           loadedCount++;
-          setProgress(Math.min((loadedCount / totalAssets) * 100, 100));
+          const newProgress = Math.min((loadedCount / totalAssets) * 100, 100);
+          setProgress(newProgress);
           if (loadedCount === totalAssets) {
-            setTimeout(() => setLoading(false), 600);
+            setTimeout(() => setLoading(false), 300);
           }
         };
         img.onerror = () => {
           loadedCount++;
-          setProgress(Math.min((loadedCount / totalAssets) * 100, 100));
+          const newProgress = Math.min((loadedCount / totalAssets) * 100, 100);
+          setProgress(newProgress);
           if (loadedCount === totalAssets) {
-            setTimeout(() => setLoading(false), 600);
+            setTimeout(() => setLoading(false), 300);
           }
         };
       }
     });
 
-    // Cleanup function
-    return () => {
-      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
-    };
+    // Set timeout to ensure loading doesn't take too long
+    const timeout = setTimeout(() => {
+      setLoading(false);
+    }, 4000);
+
+    return () => clearTimeout(timeout);
   }, []);
 
   // Initialize ScrollTrigger after loading is complete
@@ -108,47 +103,29 @@ const Home = () => {
 
   return (
     <>
-      {loading && (
-        <div ref={loaderRef} className="initial-loader">
-          <div className="loader-container">
-            <div className="logo-container">
-              <div className="logo-circle">
-                <div className="logo-inner"></div>
-              </div>
-            </div>
-            <h2 className="loader-title">Code Nexus Crew</h2>
-            <p className="loader-subtitle">Crafting Your Coding Journey</p>
-            <div className="progress-container">
-              <div className="progress-bar">
-                <div 
-                  className="progress-fill" 
-                  style={{ width: `${progress}%` }}
-                ></div>
-              </div>
-              <span className="progress-text">{Math.round(progress)}%</span>
-            </div>
-            <div className="loading-dots">
-              <span></span>
-              <span></span>
-              <span></span>
-            </div>
-          </div>
-        </div>
-      )}
+      {loading && <LoadingSpinner progress={progress} />}
       
       <div 
         ref={containerRef} 
         className="overflow-hidden" 
-        style={{ visibility: loading ? 'hidden' : 'visible' }}
+        style={{ 
+          visibility: loading ? 'hidden' : 'visible',
+          opacity: loading ? 0 : 1,
+          transition: 'opacity 0.3s ease-in'
+        }}
       >
-        <Page1 />
-        <Page2 />
-        <Page3 />
-        <Page4 />
-        <Page5 />
-        <Page7 />
-        <Page8 />
-        <Page9 />
+        <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
+          <Page1 />
+          <Page2 />
+          <Page3 />
+          <Page4 />
+          <Page5 />
+          <Page6 />
+          <Page7 />
+          <Page8 />
+          <Page9 />
+          <Page10 />
+        </Suspense>
       </div>
     </>
   );

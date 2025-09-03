@@ -1,0 +1,239 @@
+.courses-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  padding: 2rem;
+}
+
+.courses-hero {
+  text-align: center;
+  margin-bottom: 3rem;
+  
+  h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    color: #2d3748;
+    margin-bottom: 1rem;
+    font-family: 'MyFont1', sans-serif;
+  }
+  
+  p {
+    font-size: 1.2rem;
+    color: #4a5568;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+}
+
+.courses-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto 4rem;
+}
+
+.course-card {
+  background: white;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  }
+}
+
+.course-image {
+  height: 250px;
+  overflow: hidden;
+  
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+  
+  &:hover img {
+    transform: scale(1.05);
+  }
+}
+
+.course-content {
+  padding: 2rem;
+  
+  h2 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #2d3748;
+    margin-bottom: 0.5rem;
+    font-family: 'MyFont1', sans-serif;
+  }
+  
+  .instructor {
+    color: #d05707;
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+  }
+}
+
+.course-details {
+  margin-bottom: 1.5rem;
+  
+  .detail-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #e2e8f0;
+    
+    .label {
+      font-weight: 600;
+      color: #4a5568;
+    }
+    
+    .value {
+      color: #2d3748;
+      text-align: right;
+    }
+  }
+}
+
+.features-list {
+  list-style: none;
+  margin-bottom: 2rem;
+  
+  li {
+    padding: 0.5rem 0;
+    color: #4a5568;
+    position: relative;
+    padding-left: 1.5rem;
+    
+    &::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: #d05707;
+      font-weight: bold;
+    }
+  }
+}
+
+.join-button {
+  display: block;
+  width: 100%;
+  padding: 1rem 2rem;
+  background: linear-gradient(135deg, #d05707 0%, #ff7b2c 100%);
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(208, 87, 7, 0.3);
+  }
+}
+
+.fullstack-cta {
+  background: white;
+  border-radius: 20px;
+  padding: 3rem;
+  text-align: center;
+  max-width: 1000px;
+  margin: 0 auto;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  
+  h2 {
+    font-size: 2.2rem;
+    color: #2d3748;
+    margin-bottom: 1rem;
+    font-family: 'MyFont1', sans-serif;
+  }
+  
+  p {
+    font-size: 1.1rem;
+    color: #4a5568;
+    margin-bottom: 2rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+.benefits {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+  
+  .benefit {
+    text-align: center;
+    
+    .icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+    
+    h4 {
+      font-size: 1.2rem;
+      color: #2d3748;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+    
+    p {
+      color: #718096;
+      font-size: 0.9rem;
+      margin-bottom: 0;
+    }
+  }
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  .courses-page {
+    padding: 1rem;
+  }
+  
+  .courses-hero {
+    h1 {
+      font-size: 2.2rem;
+    }
+    
+    p {
+      font-size: 1rem;
+    }
+  }
+  
+  .courses-container {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .course-content {
+    padding: 1.5rem;
+  }
+  
+  .fullstack-cta {
+    padding: 2rem 1.5rem;
+    
+    h2 {
+      font-size: 1.8rem;
+    }
+  }
+  
+  .benefits {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
