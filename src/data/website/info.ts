@@ -3,8 +3,8 @@
 export const websiteInfo: WebsiteInfo = {
   name: "Course Craft",
   slogan: "LEARN. CODE. EARN.",
-  logo: "https://images.pexels.com/photos/207662/pexels-photo-207662.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop",
-  favicon: "/favicon.ico",
+  logo: "./images/assests/logo.png",
+  favicon: "./images/assests/logo.png",
   linkedin : "https://www.linkedin.com/in/muhammad-ali-abbas-khan-417852306/" ,
   instagram : "https://www.instagram.com/aliabbaskhan07/?hl=en" , 
   mail      : "pythoncoderexpert@gmail.com" ,

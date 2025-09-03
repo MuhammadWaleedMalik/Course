@@ -56,7 +56,7 @@ const Header = () => {
       <div className="header-bar">
         <div className="left-section">
           <div className="logo-container">
-            <img src="/path/to/logo.png" alt="Website Name" className="logo" />
+            <img src="\images\assests\logo.jpg" alt="Website Name" className="logo" />
             <span className="website-name">Course Craft</span>
           </div>
         </div>
